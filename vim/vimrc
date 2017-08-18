@@ -1,0 +1,56 @@
+set nocompatible              " be iMproved, required
+set number                    " line number
+set showcmd                   " show commands at botton
+set hlsearch                  " highlight searched itens
+set ignorecase                " ignore sensitive case in searching
+set smartcase                 " unless it is specfically high case
+set ruler
+set laststatus=2              " shows status bar at the bottom
+set cmdheight=2
+set visualbell                " no beep, just flash when a mistake is made
+set shiftwidth=2              " tab size
+set softtabstop=2             " tab size
+set expandtab                 " tab size
+set autoread                  " reload if file is edited somewhere else
+set showmatch                 " match brackets and such
+set nolinebreak               " 
+set showmode                  " always show the cursor position
+set autoindent                " auto indent new lines
+set scrolloff=4               " keep the last used line 4 lines from botton
+set incsearch                 " hightlights searched terms as they are typed
+set noswapfile                " doesn't create the swap files
+set cursorline                " line beneath the current line
+
+let g:airline_theme = 'solarized'
+let g:airline_powerline_fonts = 1
+let g:airline_solarized_bg='dark'
+
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+
+" Github plugin:	Plugin 'tpope/vim-fugitive'
+" Not github plugin:	Plugin 'git://git.wincent.com/comment-t.git'
+Plugin 'gmarik/Vundle.vim'	" required
+Plugin 'scrooloose/nerdtree'    " file manager
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+call vundle#end()
+
+filetype plugin indent on	" required
+
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+
+" Put your non-Plugin stuff after this line
+
+syntax on
+
+inoremap jj <Esc>
