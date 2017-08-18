@@ -1,1 +1,4 @@
-# vim_config
+# Dotfiles - OSX
+## Macvim
+## Zsh
+## iTerm2
