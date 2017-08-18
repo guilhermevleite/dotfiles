@@ -20,10 +20,28 @@ set scrolloff=4               " keep the last used line 4 lines from botton
 set incsearch                 " hightlights searched terms as they are typed
 set noswapfile                " doesn't create the swap files
 set cursorline                " line beneath the current line
+set hidden                    " allows buffers to be hidden if you'he modified a buffer
 
 let g:airline_theme = 'solarized'
 let g:airline_powerline_fonts = 1
 let g:airline_solarized_bg='dark'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+let g:ctrlp_custom_ignore = {
+  \ 'dir': '\v[\/](\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+  \}
+let g:ctrlp_working_path_mode = 'r'
+
+let g:buffergator_viewport_split_policy = 'R'
+let g:buffergator_suppress_keymaps = 1
+
+let python_highlight_all = 1
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 filetype off                  " required
 
@@ -36,8 +54,13 @@ call vundle#begin()
 " Not github plugin:	Plugin 'git://git.wincent.com/comment-t.git'
 Plugin 'gmarik/Vundle.vim'	" required
 Plugin 'scrooloose/nerdtree'    " file manager
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'jeetsukumaran/vim-buffergator'
+
+Plugin 'hdima/python-syntax'
 
 call vundle#end()
 
@@ -54,3 +77,25 @@ filetype plugin indent on	" required
 syntax on
 
 inoremap jj <Esc>
+
+map <C-n> :NERDTreeToggle<CR>
+
+" Buffer manage Keys
+nmap <leader>T :enew<cr>          " Open a new empty buffer
+nmap <leader>bq :bp <BAR> bd #<CR>" Close current buffer and move to previous one
+
+" Buffergator Plugin
+nmap <leader>hh :BuffergatorMruCyclePrev<cr>
+nmap <leader>ll :BuffergatorMruCycleNext<cr>
+nmap <leader>bl :BuffergatorOpen<cr>          " List all open buffers
+
+" CtrlP Plugin
+nmap <leader>p :CtrlP<cr>
+nmap <leader>bb :CtrlPBuffer<cr>
+nmap <leader>bm :CtrlPMixed<cr>
+nmap <leader>bs :CtrlPMRU<cr>
+
+map <C-h> <C-W>h
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-l> <C-W>l
