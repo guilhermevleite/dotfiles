@@ -12,7 +12,7 @@ set shiftwidth=2              " tab size
 set softtabstop=2             " tab size
 set expandtab                 " tab size
 set autoread                  " reload if file is edited somewhere else
-set showmatch                 " match brackets and such
+" set showmatch                 " match brackets and such
 set nolinebreak               " 
 set showmode                  " always show the cursor position
 set autoindent                " auto indent new lines
@@ -37,7 +37,7 @@ let g:ctrlp_working_path_mode = 'r'
 let g:buffergator_viewport_split_policy = 'R'
 let g:buffergator_suppress_keymaps = 1
 
-let python_highlight_all = 1
+let g:nerdtree_tabs_open_on_console_startup = 1
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
