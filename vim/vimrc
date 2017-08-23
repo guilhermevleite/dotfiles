@@ -40,6 +40,8 @@ let g:buffergator_suppress_keymaps = 1
 
 let g:nerdtree_tabs_open_on_console_startup = 1
 
+let python_highlight_all = 1
+
 highlight ColorColumn ctermbg=0 guibg=DarkSeaGreen1
 
 autocmd StdinReadPre * let s:std_in=1
