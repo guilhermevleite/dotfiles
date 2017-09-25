@@ -12,7 +12,6 @@ set shiftwidth=2              " tab size
 set softtabstop=2             " tab size
 set expandtab                 " tab size
 set autoread                  " reload if file is edited somewhere else
-" set showmatch                 " match brackets and such
 set colorcolumn=80
 set nolinebreak               " 
 set showmode                  " always show the cursor position
@@ -55,6 +54,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
 
+" vim +PluginInstall +qall
 " Github plugin:	Plugin 'tpope/vim-fugitive'
 " Not github plugin:	Plugin 'git://git.wincent.com/comment-t.git'
 Plugin 'gmarik/Vundle.vim'	" required
@@ -64,6 +64,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'hdima/python-syntax'
 
