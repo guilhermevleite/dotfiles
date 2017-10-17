@@ -13,10 +13,10 @@ set softtabstop=2             " tab size
 set expandtab                 " tab size
 set autoread                  " reload if file is edited somewhere else
 set colorcolumn=80
-set nolinebreak               " 
+set nolinebreak               "
 set showmode                  " always show the cursor position
 set autoindent                " auto indent new lines
-set scrolloff=4               " keep the last used line 4 lines from botton
+set scrolloff=10               " keep the last used line 4 lines from botton
 set incsearch                 " hightlights searched terms as they are typed
 set noswapfile                " doesn't create the swap files
 set cursorline                " line beneath the current line
@@ -41,6 +41,12 @@ let g:nerdtree_tabs_open_on_console_startup = 1
 
 let python_highlight_all = 1
 
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
+
+let g:indent_guides_enable_on_vim_startup = 1
+
 highlight ColorColumn ctermbg=0 guibg=DarkSeaGreen1
 
 autocmd StdinReadPre * let s:std_in=1
@@ -59,14 +65,14 @@ call vundle#begin()
 " Not github plugin:	Plugin 'git://git.wincent.com/comment-t.git'
 Plugin 'gmarik/Vundle.vim'	" required
 Plugin 'scrooloose/nerdtree'    " file manager
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+" Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'jeetsukumaran/vim-buffergator'
 Plugin 'scrooloose/nerdcommenter'
-
-Plugin 'hdima/python-syntax'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'airblade/vim-gitgutter'
 
 call vundle#end()
 
@@ -80,7 +86,7 @@ filetype plugin indent on	" required
 
 " Put your non-Plugin stuff after this line
 
-syntax on
+syntax off
 
 inoremap jj <Esc>
 
