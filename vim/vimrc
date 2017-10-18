@@ -73,6 +73,7 @@ Plugin 'jeetsukumaran/vim-buffergator'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'lervag/vimtex'
 
 call vundle#end()
 
