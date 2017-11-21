@@ -1,6 +1,10 @@
 set nocompatible              " be iMproved, required
 set number                    " line number
 set visualbell                " no beep, just flash when a mistake is made
+set foldmethod=indent
+set foldlevel=99
+set clipboard=unnamed
+set lazyredraw
 
 set shiftwidth=2              " tab size
 set softtabstop=2             " tab size
@@ -8,7 +12,6 @@ set expandtab                 " tab size
 
 set autoread                  " reload if file is edited somewhere else
 set colorcolumn=80
-set textwidth=80
 set nolinebreak
 set showmode                  " always show the cursor position
 set autoindent                " auto indent new lines
@@ -45,6 +48,26 @@ let g:NERDDefaultAlign = 'left'
 
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size=1
+let g:indent_guides_start_level=2
+
+" auto complete
+let g:ycm_autoclose_preview_window_after_completion=1
+
+" python syntax
+let python_highlight_all=1
+
+" docstring for folded code
+let g:SimpylFold_docstring_preview=1
+
+" syntax check
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list_height = 5
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_error_symbol = "\u2717"
+let g:syntastic_warning_symbol = "\u26A0"
 
 highlight ColorColumn ctermbg=0 guibg=DarkSeaGreen1
 
@@ -79,6 +102,12 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'lervag/vimtex'
+Plugin 'tmhedberg/SimpylFold'   " fold fix
+Plugin 'Valloric/YouCompleteMe' " auto complete
+Plugin 'scrooloose/syntastic'   " syntax check
+Plugin 'nvie/vim-flake8'        " PEP8 check
+Plugin 'kien/ctrlp.vim'         " search
+Plugin 'tpope/vim-fugitive'     " basic git commands
 
 call vundle#end()
 
@@ -89,6 +118,9 @@ filetype plugin indent on	" required
 inoremap jj <Esc>
 
 map <C-n> :NERDTreeToggle<CR>
+
+" Auto complete, goes to definition or declaration of variable
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " Buffer manage Keys
 nmap <leader>T :enew<cr>          " Open a new empty buffer
@@ -104,3 +136,13 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-l> <C-W>l
 map <leader>;; <plug>(vimtex-compile)
+
+"python with virtualenv support
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  execfile(activate_this, dict(__file__=activate_this))
+EOF
