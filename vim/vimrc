@@ -83,6 +83,8 @@ let g:syntastic_warning_symbol = "\u2757"
 let g:syntastic_style_error_symbol = "\u2716"
 let g:syntastic_style_warning_symbol = "\u2757"
 
+let g:ale_sign_column_always = 1
+
 highlight ColorColumn ctermbg=0 guibg=DarkSeaGreen1
 
 autocmd StdinReadPre * let s:std_in=1
@@ -117,10 +119,11 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'lervag/vimtex'
 Plugin 'tmhedberg/SimpylFold'   " fold fix
 Plugin 'Valloric/YouCompleteMe' " auto complete
-Plugin 'scrooloose/syntastic'   " syntax check
+" Plugin 'scrooloose/syntastic'   " syntax check
 Plugin 'nvie/vim-flake8'        " PEP8 check
 Plugin 'kien/ctrlp.vim'         " search
 Plugin 'tpope/vim-fugitive'     " basic git commands
+Plugin 'w0rp/ale'               " Linter
 
 call vundle#end()
 
@@ -168,4 +171,4 @@ if 'VIRTUAL_ENV' in os.environ:
 EOF
 
 " LATEX
-autocmd FileType tex setlocal textwidth=80 
+autocmd FileType tex setlocal textwidth=80
