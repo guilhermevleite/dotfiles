@@ -5,6 +5,7 @@ set foldmethod=indent
 set foldlevel=99
 set clipboard=unnamed
 set lazyredraw
+set spell spelllang=en_us
 
 set shiftwidth=2              " tab size
 set softtabstop=2             " tab size
@@ -27,7 +28,7 @@ set cursorline                " line beneath the current line
 set hidden                    " allows buffers to be hidden if you'he modified a buffer
 set backspace=indent,eol,start
 
-syntax enable
+syntax on
 let g:solarized_termcolors=16
 set background=dark
 colorscheme solarized
