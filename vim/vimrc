@@ -1,21 +1,13 @@
-set nocompatible              " be iMproved, required
-set number                    " line number
-set visualbell                " no beep, just flash when a mistake is made
 set foldmethod=indent
 set foldlevel=99
-set clipboard=unnamed
+" set clipboard=unnamed
 set lazyredraw
 set spell spelllang=en_us
 
-set shiftwidth=2              " tab size
-set softtabstop=2             " tab size
-set expandtab                 " tab size
-
 set autoread                  " reload if file is edited somewhere else
-set colorcolumn=80
+
 set nolinebreak
 set showmode                  " always show the cursor position
-set autoindent                " auto indent new lines
 set scrolloff=10               " keep the last used line 4 lines from botton
 
 set hlsearch
@@ -24,17 +16,46 @@ set smartcase
 set incsearch                 " hightlights searched terms as they are typed
 
 set noswapfile                " doesn't create the swap files
-set cursorline                " line beneath the current line
 set hidden                    " allows buffers to be hidden if you'he modified a buffer
 set backspace=indent,eol,start
 
-syntax on
-let g:solarized_termcolors=16
-set background=dark
-colorscheme solarized
+" Information
+set number                    " line number
+set visualbell                " no beep, just flash when a mistake is made
 
-" solarized.vim must be on ~/.vim/colors/
-let g:airline_solarized_bg = 'dark'
+" TAB related configs
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
+" Color scheme
+syntax on
+color dracula
+set colorcolumn=80
+
+" Status line
+set laststatus=2
+
+hi User1 ctermfg=166
+hi User2 guifg=#dd3333 guibg=#222222
+hi User3 guifg=#ff66ff guibg=#222222
+hi User4 guifg=#a0ee40 guibg=#222222
+hi User5 guifg=#eeee40 guibg=#222222
+
+set statusline=
+set statusline +=%1*\ %n\ %*            "buffer number
+set statusline +=%5*%{&ff}%*            "file format
+set statusline +=%3*%y%*                "file type
+set statusline +=%4*\ %<%F%*            "full path
+set statusline +=%2*%m%*                "modified flag
+set statusline +=%1*%=%5l%*             "current line
+set statusline +=%2*\ /\ %L\ \|%*               "total lines
+set statusline +=%1*%4c%*             "virtual column number
+
+" Indentation
+set autoindent
+filetype plugin indent on
+
 let g:airline_powerline_fonts = 1
 let g:airline_section_z = '%l / %L | %c'
 
@@ -62,29 +83,23 @@ let g:ycm_autoclose_preview_window_after_completion=1
 
 " python syntax
 let python_highlight_all=1
+let g:pymode_python = 'python3'
 
 " docstring for folded code
 let g:SimpylFold_docstring_preview=1
 
-" syntax check
-" :SyntasticCheck to check syntax
-" :lclose to close location list
-" :lopen to open location list
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_loc_list_height = 5
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_echo_current_error = 1
-let g:syntastic_enable_highlighting = 1 " Doesn't work with solarized?
-
-let g:syntastic_error_symbol = "\u2716"
-let g:syntastic_warning_symbol = "\u2757"
-let g:syntastic_style_error_symbol = "\u2716"
-let g:syntastic_style_warning_symbol = "\u2757"
-
+" Ale syntax checker
 let g:ale_sign_column_always = 1
+let g:ale_sign_error = "\u2716"
+let g:ale_sign_warnin = "\u2757"
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+" C++ highlight
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let g:cpp_concepts_highlight = 1
 
 highlight ColorColumn ctermbg=0 guibg=DarkSeaGreen1
 
@@ -111,20 +126,24 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'	" required
 Plugin 'scrooloose/nerdtree'    " file manager
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdcommenter' " Comment out
 Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline-themes'
 Plugin 'lervag/vimtex'
 Plugin 'tmhedberg/SimpylFold'   " fold fix
 Plugin 'Valloric/YouCompleteMe' " auto complete
-" Plugin 'scrooloose/syntastic'   " syntax check
-Plugin 'nvie/vim-flake8'        " PEP8 check
 Plugin 'kien/ctrlp.vim'         " search
-Plugin 'tpope/vim-fugitive'     " basic git commands
-Plugin 'w0rp/ale'               " Linter
+Plugin 'w0rp/ale'               " Async Linter
+" Git
+Plugin 'tpope/vim-fugitive'     " Basic git commands
+Plugin 'airblade/vim-gitgutter' " Git diff in gutter
+Plugin 'Xuyuanp/nerdtree-git-plugin'  " Git diff in nedtree
+" Python
+Plugin 'nvie/vim-flake8'        " PEP8 check
+" C++
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'dracula/vim'
 
 call vundle#end()
 
@@ -137,14 +156,14 @@ inoremap jj <Esc>
 noremap <C-n> :NERDTreeToggle<CR>
 
 " Buffer manage Keys
-nmap <leader>T :enew<cr>          " Open a new empty buffer
-nmap <leader>bq :bp <BAR> bd #<CR>" Close current buffer and move to previous one
+nnoremap <leader>T :enew<cr>          " Open a new empty buffer
+nnoremap <leader>bq :bp <BAR> bd #<CR>" Close current buffer and move to previous one
 
-map <C-h> <C-W>h
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-l> <C-W>l
-map <leader>;; <plug>(vimtex-compile)
+noremap <C-h> <C-W>h
+noremap <C-j> <C-W>j
+noremap <C-k> <C-W>k
+noremap <C-l> <C-W>l
+noremap <leader>;; <plug>(vimtex-compile)
 
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
@@ -161,15 +180,15 @@ nmap <leader>+ <Plug>AirlineSelectNextTab
 " FILE TYPE SPECIFIC CONFIG
 
 " PYTHON
-"python with virtualenv support
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
+" python with virtualenv support
+" py << EOF
+" import os
+" import sys
+" if 'VIRTUAL_ENV' in os.environ:
+"   project_base_dir = os.environ['VIRTUAL_ENV']
+"   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"   execfile(activate_this, dict(__file__=activate_this))
+" EOF
 
 " LATEX
-autocmd FileType tex setlocal textwidth=80
+" autocmd FileType tex setlocal textwidth=80
