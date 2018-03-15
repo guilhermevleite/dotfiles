@@ -1,194 +1,529 @@
-set foldmethod=indent
-set foldlevel=99
-" set clipboard=unnamed
-set lazyredraw
-set spell spelllang=en_us
+" To install Vundle
+" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-set autoread                  " reload if file is edited somewhere else
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Maintainer: 
+"       Amir Salihefendic
+"       http://amix.dk - amix@amix.dk
+"
+" Version: 
+"       6.0 - 01/04/17 14:24:34 
+"
+" Blog_post: 
+"       http://amix.dk/blog/post/19691#The-ultimate-Vim-configuration-on-Github
+"
+" Awesome_version:
+"       Get this config, nice color schemes and lots of plugins!
+"
+"       Install the awesome version from:
+"
+"           https://github.com/amix/vimrc
+"
+" Syntax_highlighted:
+"       http://amix.dk/vim/vimrc.html
+"
+" Raw_version: 
+"       http://amix.dk/vim/vimrc.txt
+"
+" Sections:
+"    -> General
+"    -> VIM user interface
+"    -> Colors and Fonts
+"    -> Files and backups
+"    -> Text, tab and indent related
+"    -> Visual mode related
+"    -> Moving around, tabs and buffers
+"    -> Status line
+"    -> Editing mappings
+"    -> vimgrep searching and cope displaying
+"    -> Spell checking
+"    -> Misc
+"    -> Helper functions
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set nolinebreak
-set showmode                  " always show the cursor position
-set scrolloff=10               " keep the last used line 4 lines from botton
-
-set hlsearch
-set ignorecase
-set smartcase
-set incsearch                 " hightlights searched terms as they are typed
-
-set noswapfile                " doesn't create the swap files
-set hidden                    " allows buffers to be hidden if you'he modified a buffer
-set backspace=indent,eol,start
-
-" Information
-set number                    " line number
-set visualbell                " no beep, just flash when a mistake is made
-
-" TAB related configs
-set tabstop=2
-set shiftwidth=2
-set expandtab
-
-" Color scheme
-syntax on
-color dracula
-set colorcolumn=80
-
-" Status line
-set laststatus=2
-
-hi User1 ctermfg=166
-hi User2 guifg=#dd3333 guibg=#222222
-hi User3 guifg=#ff66ff guibg=#222222
-hi User4 guifg=#a0ee40 guibg=#222222
-hi User5 guifg=#eeee40 guibg=#222222
-
-set statusline=
-set statusline +=%1*\ %n\ %*            "buffer number
-set statusline +=%5*%{&ff}%*            "file format
-set statusline +=%3*%y%*                "file type
-set statusline +=%4*\ %<%F%*            "full path
-set statusline +=%2*%m%*                "modified flag
-set statusline +=%1*%=%5l%*             "current line
-set statusline +=%2*\ /\ %L\ \|%*               "total lines
-set statusline +=%1*%4c%*             "virtual column number
-
-" Indentation
-set autoindent
-filetype plugin indent on
-
-let g:airline_powerline_fonts = 1
-let g:airline_section_z = '%l / %L | %c'
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#show_tab_type = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#tabline#fnamemod = ':p:.'
-
-let g:buffergator_viewport_split_policy = 'R'
-let g:buffergator_suppress_keymaps = 1
-
-let g:nerdtree_tabs_open_on_console_startup = 1
-
-let g:NERDTrimTrailingWhitespace = 1
-let g:NERDSpaceDelims = 1
-let g:NERDDefaultAlign = 'left'
-
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size=1
-let g:indent_guides_start_level=2
-
-" auto complete
-let g:ycm_autoclose_preview_window_after_completion=1
-
-" python syntax
-let python_highlight_all=1
-let g:pymode_python = 'python3'
-
-" docstring for folded code
-let g:SimpylFold_docstring_preview=1
-
-" Ale syntax checker
-let g:ale_sign_column_always = 1
-let g:ale_sign_error = "\u2716"
-let g:ale_sign_warnin = "\u2757"
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
-" C++ highlight
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_experimental_template_highlight = 1
-let g:cpp_concepts_highlight = 1
-
-highlight ColorColumn ctermbg=0 guibg=DarkSeaGreen1
-
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-
 call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
-" vim +PluginInstall +qall
-" Github plugin:	Plugin 'tpope/vim-fugitive'
-" Not github plugin:	Plugin 'git://git.wincent.com/comment-t.git'
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-
-Plugin 'gmarik/Vundle.vim'	" required
-Plugin 'scrooloose/nerdtree'    " file manager
-Plugin 'scrooloose/nerdcommenter' " Comment out
+" Colored indentation guides
 Plugin 'nathanaelkane/vim-indent-guides'
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
+
+" Latex in vim
 Plugin 'lervag/vimtex'
-Plugin 'tmhedberg/SimpylFold'   " fold fix
-Plugin 'Valloric/YouCompleteMe' " auto complete
-Plugin 'kien/ctrlp.vim'         " search
-Plugin 'w0rp/ale'               " Async Linter
-" Git
-Plugin 'tpope/vim-fugitive'     " Basic git commands
-Plugin 'airblade/vim-gitgutter' " Git diff in gutter
-Plugin 'Xuyuanp/nerdtree-git-plugin'  " Git diff in nedtree
-" Python
-Plugin 'nvie/vim-flake8'        " PEP8 check
-" C++
+
+" Linter
+Plugin 'w0rp/ale'
+
+" Git diff in gutter
+Plugin 'airblade/vim-gitgutter'
+
+" C++ enhanced highlight
 Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'dracula/vim'
 
-call vundle#end()
+" PEP8 python syntax checker
+Plugin 'nvie/vim-flake8'
 
-filetype plugin indent on	" required
+" Tab completion
+Plugin 'ajh17/VimCompletesMe'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 " Put your non-Plugin stuff after this line
 
-inoremap jj <Esc>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ALE
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable completion where available.
+let g:ale_completion_enabled = 1
 
-noremap <C-n> :NERDTreeToggle<CR>
+" Keeps the gutter always 
+let g:ale_sign_column_always = 1
 
-" Buffer manage Keys
-nnoremap <leader>T :enew<cr>          " Open a new empty buffer
-nnoremap <leader>bq :bp <BAR> bd #<CR>" Close current buffer and move to previous one
+" Error
+let g:ale_sign_error = '✘'
 
-noremap <C-h> <C-W>h
-noremap <C-j> <C-W>j
-noremap <C-k> <C-W>k
-noremap <C-l> <C-W>l
-noremap <leader>;; <plug>(vimtex-compile)
+" Warning
+let g:ale_sign_warning = '!!'
 
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nmap <leader>- <Plug>AirlineSelectPrevTab
-nmap <leader>+ <Plug>AirlineSelectNextTab
+" Clear the BG color that Ale sets
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
 
-" FILE TYPE SPECIFIC CONFIG
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
 
-" PYTHON
-" python with virtualenv support
-" py << EOF
-" import os
-" import sys
-" if 'VIRTUAL_ENV' in os.environ:
-"   project_base_dir = os.environ['VIRTUAL_ENV']
-"   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-"   execfile(activate_this, dict(__file__=activate_this))
-" EOF
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
 
-" LATEX
-" autocmd FileType tex setlocal textwidth=80
+    return l:counts.total == 0 ? '' : printf(
+    \   '[%d!! %d✘]',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+
+let g:ale_echo_msg_error_str = '✘'
+let g:ale_echo_msg_warning_str = '!!'
+let g:ale_echo_msg_format = '[%severity%][%linter%] %s'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Sets how many lines of history VIM has to remember
+set history=500
+
+" Show line number
+set number
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" Keeps the curso 10 lines from bottom
+set scrolloff=10
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" :W sudo saves the file 
+" (useful for handling the permission-denied error)
+command W w !sudo tee % > /dev/null
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+
+" Avoid garbled characters in Chinese language windows OS
+let $LANG='en' 
+set langmenu=en
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+" Turn on the Wild menu
+set wildmenu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
+
+"Always show current position
+set ruler
+
+" Height of the command bar
+set cmdheight=2
+
+" A buffer becomes hidden when it is abandoned
+set hid
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases 
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch 
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw 
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch 
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Properly disable sound on errors on MacVim
+if has("gui_macvim")
+    autocmd GUIEnter * set vb t_vb=
+endif
+
+
+" Add a bit extra margin to the left
+set foldcolumn=1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable syntax highlighting
+syntax enable 
+
+" Enable 256 colors palette in Gnome Terminal
+if $COLORTERM == 'gnome-terminal'
+    set t_Co=256
+endif
+
+try
+    colorscheme dracula
+catch
+endtry
+
+set background=dark
+
+" Paint column 80
+set colorcolumn=80
+
+" Set the color of the painted column
+highlight ColorColumn ctermbg=60 ctermfg=15
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guioptions-=T
+    set guioptions-=e
+    set t_Co=256
+    set guitablabel=%M\ %t
+endif
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+map <c-space> ?
+
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Open a new empty buffer
+map <leader>bt :enew<cr>
+
+" Close the current buffer
+map <leader>bq :Bclose<cr>:tabclose<cr>gT
+
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+
+map <leader>l :bnext<cr>
+map <leader>h :bprevious<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove 
+map <leader>t<leader> :tabnext 
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Specify the behavior when switching between buffers 
+try
+  set switchbuf=useopen,usetab,newtab
+  set stal=2
+catch
+endtry
+
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+" Always show the status line
+set laststatus=2
+
+"function! InsertStatuslineColor(mode)
+"  if a:mode == 'i'
+"    hi statusline guibg=magenta
+"  elseif a:mode == 'r'
+"    hi statusline guibg=blue
+"  else
+"    hi statusline guibg=red
+"  endif
+"endfunction
+
+"au InsertEnter * call InsertStatuslineColor(v:insertmode)
+"au InsertChange * call InsertStatuslineColor(v:insertmode)
+"au InsertLeave * hi statusline guibg=green
+
+" default the statusline to green when entering Vim
+"hi statusline guibg=green
+
+set statusline=%2*
+set statusline+=%(%{&buflisted?bufnr('%'):''}\ \ %)
+set statusline+=%{LinterStatus()}
+set statusline+=%< " Truncate line here
+set statusline+=\ %f\  " File path, as typed or relative to current directory
+set statusline+=%{&modified?'+\ ':''}
+set statusline+=%{&readonly?'\ ':''}
+set statusline+=%*
+set statusline+=%1*\  " Set highlight group to User1
+set statusline+=%= " Separation point between left and right aligned items
+set statusline+=\ %{&filetype!=#''?&filetype:'none'}
+set statusline+=%(\ \ %-2c%)
+set statusline+=\ %* " Restore normal highlight
+set statusline+=%2*\ %-2c
+set statusline+=\ %l\ of 
+set statusline+=\ %L " Percentage through file in lines as in |CTRL-G|
+set statusline+=%*
+
+hi StatusLine ctermfg=0 ctermbg=1
+hi StatusLineNC ctermfg=0 ctermbg=1
+hi User1 ctermfg=4 ctermbg=none
+hi User2 ctermfg=0 ctermbg=4
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Editing mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" Move a line of text using ALT+[jk] or Command+[jk] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+if has("mac") || has("macunix")
+  nmap <D-j> <M-j>
+  nmap <D-k> <M-k>
+  vmap <D-j> <M-j>
+  vmap <D-k> <M-k>
+endif
+
+" Delete trailing white space on save, useful for some filetypes ;)
+fun! CleanExtraSpaces()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    silent! %s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfun
+
+if has("autocmd")
+    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Spell checking
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Quickly open a buffer for scribble
+map <leader>q :e ~/buffer<cr>
+
+" Quickly open a markdown buffer for scribble
+map <leader>x :e ~/buffer.md<cr>
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    endif
+    return ''
+endfunction
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+   let l:currentBufNum = bufnr("%")
+   let l:alternateBufNum = bufnr("#")
+
+   if buflisted(l:alternateBufNum)
+     buffer #
+   else
+     bnext
+   endif
+
+   if bufnr("%") == l:currentBufNum
+     new
+   endif
+
+   if buflisted(l:currentBufNum)
+     execute("bdelete! ".l:currentBufNum)
+   endif
+endfunction
+
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction 
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+imap ;; <Esc>
