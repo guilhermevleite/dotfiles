@@ -78,6 +78,9 @@ Plugin 'nvie/vim-flake8'
 " Tab completion
 Plugin 'ajh17/VimCompletesMe'
 
+" Commenting
+Plugin 'scrooloose/nerdcommenter'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -99,6 +102,8 @@ let g:ale_sign_error = '✘'
 " Warning
 let g:ale_sign_warning = '!!'
 
+let g:ale_set_highlights = 0
+
 " Clear the BG color that Ale sets
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
@@ -110,7 +115,7 @@ function! LinterStatus() abort
     let l:all_non_errors = l:counts.total - l:all_errors
 
     return l:counts.total == 0 ? '' : printf(
-    \   '[%d!! %d✘]',
+    \   '[%d!! %d✘]  ',
     \   all_non_errors,
     \   all_errors
     \)
@@ -119,6 +124,21 @@ endfunction
 let g:ale_echo_msg_error_str = '✘'
 let g:ale_echo_msg_warning_str = '!!'
 let g:ale_echo_msg_format = '[%severity%][%linter%] %s'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => NERDCOMMENTER
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+map <C-_> <plug>NERDCommenterToggle
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -307,13 +327,6 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
-
-" Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
-
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -329,8 +342,8 @@ map <leader>bq :Bclose<cr>:tabclose<cr>gT
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
 
-map <leader>l :bnext<cr>
-map <leader>h :bprevious<cr>
+map <leader>bl :bnext<cr>
+map <leader>bh :bprevious<cr>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
@@ -369,28 +382,51 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " Always show the status line
 set laststatus=2
 
-"function! InsertStatuslineColor(mode)
-"  if a:mode == 'i'
-"    hi statusline guibg=magenta
-"  elseif a:mode == 'r'
-"    hi statusline guibg=blue
-"  else
-"    hi statusline guibg=red
-"  endif
-"endfunction
+hi User3 ctermfg=0 ctermbg=6
+hi User4 ctermfg=4 ctermbg=6
+hi User5 ctermfg=6 ctermbg=4
+let g:mode_name = "NORMAL"
 
-"au InsertEnter * call InsertStatuslineColor(v:insertmode)
-"au InsertChange * call InsertStatuslineColor(v:insertmode)
-"au InsertLeave * hi statusline guibg=green
+function! InsertStatuslineColor(mode)
+    if a:mode == 'i'
+        hi User3 ctermfg=0 ctermbg=2
+        hi User4 ctermbg=2
+        hi User5 ctermfg=2
+        let g:mode_name = "INSERT"
+    elseif a:mode == 'r'
+        hi User3 ctermfg=0 ctermbg=5
+        hi User4 ctermbg=5
+        hi User5 ctermfg=5
+        let g:mode_name = "REPLACE"
+    elseif a:mode == 'v'
+        set updatetime=0
+        hi User3 ctermfg=0 ctermbg=3
+        hi User4 ctermbg=3
+        hi User5 ctermfg=3
+        let g:mode_name = "VISUAL"
+    elseif a:mode == 'x'
+        set updatetime=4000
+        hi User3 ctermfg=0 ctermbg=6
+        hi User4 ctermfg=4 ctermbg=6
+        hi User5 ctermfg=6 ctermbg=4
+        let g:mode_name = "NORMAL"
+    else
+        hi User3 ctermfg=5 ctermbg=4
+        let g:mode_name = "Banana"
+    endif
+endfunction
 
-" default the statusline to green when entering Vim
-"hi statusline guibg=green
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertChange * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * call InsertStatuslineColor('x')
+au CursorHold * call InsertStatuslineColor('x')
 
 set statusline=%2*
-set statusline+=%(%{&buflisted?bufnr('%'):''}\ \ %)
-set statusline+=%{LinterStatus()}
+set statusline+=%(%{&buflisted?bufnr('%'):''}\ %)%*
+set statusline+=%4*%*%3*\ \%{g:mode_name}\ %*%5*%*
+set statusline+=%2*\ %{LinterStatus()}
 set statusline+=%< " Truncate line here
-set statusline+=\ %f\  " File path, as typed or relative to current directory
+set statusline+=%f\  " File path, as typed or relative to current directory
 set statusline+=%{&modified?'+\ ':''}
 set statusline+=%{&readonly?'\ ':''}
 set statusline+=%*
@@ -526,4 +562,10 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
-imap ;; <Esc>
+inoremap ;; <Esc>
+vnoremap ;; <Esc> 
+
+" Change colors when entering / leaving visual mode
+vnoremap <silent> <expr> <SID>InsertStatuslineColorVisual InsertStatuslineColor('v')
+nnoremap <silent> <script> <C-v> <C-v><SID>InsertStatuslineColorVisual
+nnoremap <silent> <script> <S-v> <S-v><SID>InsertStatuslineColorVisual
