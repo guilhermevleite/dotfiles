@@ -81,6 +81,12 @@ Plugin 'ajh17/VimCompletesMe'
 " Commenting
 Plugin 'scrooloose/nerdcommenter'
 
+" Tag managing
+Plugin 'ludovicchabant/vim-gutentags'
+
+" Tag bar
+Plugin 'majutsushi/tagbar'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -382,9 +388,9 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " Always show the status line
 set laststatus=2
 
-hi User3 ctermfg=0 ctermbg=6
-hi User4 ctermfg=4 ctermbg=6
-hi User5 ctermfg=6 ctermbg=4
+hi User3 ctermfg=0 ctermbg=15
+hi User4 ctermfg=4 ctermbg=15
+hi User5 ctermfg=15 ctermbg=4
 let g:mode_name = "NORMAL"
 
 function! InsertStatuslineColor(mode)
@@ -394,9 +400,9 @@ function! InsertStatuslineColor(mode)
         hi User5 ctermfg=2
         let g:mode_name = "INSERT"
     elseif a:mode == 'r'
-        hi User3 ctermfg=0 ctermbg=5
-        hi User4 ctermbg=5
-        hi User5 ctermfg=5
+        hi User3 ctermfg=0 ctermbg=1
+        hi User4 ctermbg=1
+        hi User5 ctermfg=1
         let g:mode_name = "REPLACE"
     elseif a:mode == 'v'
         set updatetime=0
@@ -406,12 +412,12 @@ function! InsertStatuslineColor(mode)
         let g:mode_name = "VISUAL"
     elseif a:mode == 'x'
         set updatetime=4000
-        hi User3 ctermfg=0 ctermbg=6
-        hi User4 ctermfg=4 ctermbg=6
-        hi User5 ctermfg=6 ctermbg=4
+        hi User3 ctermfg=0 ctermbg=15
+        hi User4 ctermfg=4 ctermbg=15
+        hi User5 ctermfg=15 ctermbg=4
         let g:mode_name = "NORMAL"
     else
-        hi User3 ctermfg=5 ctermbg=4
+        hi User3 ctermfg=1 ctermbg=4
         let g:mode_name = "Banana"
     endif
 endfunction
@@ -422,7 +428,7 @@ au InsertLeave * call InsertStatuslineColor('x')
 au CursorHold * call InsertStatuslineColor('x')
 
 set statusline=%2*
-set statusline+=%(%{&buflisted?bufnr('%'):''}\ %)%*
+set statusline+=\ %(%{&buflisted?bufnr('%'):''}\ %)%*
 set statusline+=%4*%*%3*\ \%{g:mode_name}\ %*%5*%*
 set statusline+=%2*\ %{LinterStatus()}
 set statusline+=%< " Truncate line here
@@ -433,11 +439,11 @@ set statusline+=%*
 set statusline+=%1*\  " Set highlight group to User1
 set statusline+=%= " Separation point between left and right aligned items
 set statusline+=\ %{&filetype!=#''?&filetype:'none'}
-set statusline+=%(\ \ %-2c%)
+set statusline+=%(\ \ %{gutentags#statusline()}%)
 set statusline+=\ %* " Restore normal highlight
 set statusline+=%2*\ %-2c
 set statusline+=\ %l\ of 
-set statusline+=\ %L " Percentage through file in lines as in |CTRL-G|
+set statusline+=\ %L\  " Percentage through file in lines as in |CTRL-G|
 set statusline+=%*
 
 hi StatusLine ctermfg=0 ctermbg=1
@@ -562,8 +568,8 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
-inoremap ;; <Esc>
-vnoremap ;; <Esc> 
+inoremap ji <Esc>
+vnoremap ji <Esc> 
 
 " Change colors when entering / leaving visual mode
 vnoremap <silent> <expr> <SID>InsertStatuslineColorVisual InsertStatuslineColor('v')
