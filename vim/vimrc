@@ -96,6 +96,9 @@ Plugin 'airblade/vim-gitgutter'
 " C++ enhanced highlight
 Plugin 'octol/vim-cpp-enhanced-highlight'
 
+" Clang Google formating
+Plugin 'rhysd/vim-clang-format'
+
 " PEP8 python syntax checker
 Plugin 'nvie/vim-flake8'
 
@@ -157,6 +160,16 @@ endfunction
 let g:ale_echo_msg_error_str = '✘'
 let g:ale_echo_msg_warning_str = '!!'
 let g:ale_echo_msg_format = '[%severity%][%linter%] %s'
+
+let g:ale_linters = {'cpp': ['clang'], 'c': ['clang']}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM CLANG FORMAT
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd FileType c ClangFormatAutoEnable
+
+let g:clang_format#auto_format_on_insert_leave = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDCOMMENTER
@@ -379,11 +392,11 @@ map <leader>bl :bnext<cr>
 map <leader>bh :bprevious<cr>
 
 " Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
+" map <leader>tn :tabnew<cr>
+" map <leader>to :tabonly<cr>
+" map <leader>tc :tabclose<cr>
+" map <leader>tm :tabmove
+" map <leader>t<leader> :tabnext
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -482,20 +495,20 @@ hi User2 ctermfg=0 ctermbg=4
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remap VIM 0 to first non-blank character
-map 0 ^
+" map 0 ^
 
 " Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+" nmap <M-j> mz:m+<cr>`z
+" nmap <M-k> mz:m-2<cr>`z
+" vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+" vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
+" if has("mac") || has("macunix")
+  " nmap <D-j> <M-j>
+  " nmap <D-k> <M-k>
+  " vmap <D-j> <M-j>
+  " vmap <D-k> <M-k>
+" endif
 
 " Delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
@@ -528,16 +541,16 @@ map <leader>s? z=
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+" noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
+" map <leader>q :e ~/buffer<cr>
 
 " Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
+" map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+" map <leader>pp :setlocal paste!<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -596,7 +609,7 @@ function! VisualSelection(direction, extra_filter) range
 endfunction
 
 inoremap ji <Esc>
-vnoremap ji <Esc> 
+" vnoremap ji <Esc>
 
 " Change colors when entering / leaving visual mode
 vnoremap <silent> <expr> <SID>InsertStatuslineColorVisual InsertStatuslineColor('v')
