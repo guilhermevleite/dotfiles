@@ -105,3 +105,6 @@ source /home/leite/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-
 source /opt/ros/kinetic/setup.zsh
 
 alias foxit='/home/leite/bin/FoxitReader'
+
+# Remap left shift to blank
+xmodmap -e "keycode 50 ="
