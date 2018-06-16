@@ -58,7 +58,9 @@ DISABLE_UPDATE_PROMT="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+    colored-man-pages
     git
+    git-remote-branch
     zsh-syntax-highligthing
     aws
     docker
@@ -68,6 +70,8 @@ plugins=(
     python
     pylint
     screen
+    virtualenv
+    vundle
     )
 
 source $ZSH/oh-my-zsh.sh
@@ -101,7 +105,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source /home/leite/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/ros/kinetic/setup.zsh
-
 alias foxit='/home/leite/bin/FoxitReader'
+alias grep='grep --color'
+
+source /home/leite/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /opt/ros/kinetic/setup.zsh

@@ -85,6 +85,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'nathanaelkane/vim-indent-guides'
 
 " Latex in vim
+" sudo apt-get install latexmk
 Plugin 'lervag/vimtex'
 
 " Linter
@@ -101,9 +102,6 @@ Plugin 'rhysd/vim-clang-format'
 
 " PEP8 python syntax checker
 Plugin 'nvie/vim-flake8'
-
-" Clang Format
-Plugin 'rhysd/vim-clang-format'
 
 " Tab completion
 Plugin 'ajh17/VimCompletesMe'
@@ -162,6 +160,13 @@ let g:ale_echo_msg_warning_str = '!!'
 let g:ale_echo_msg_format = '[%severity%][%linter%] %s'
 
 let g:ale_linters = {'cpp': ['clang'], 'c': ['clang']}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIMTEX
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:latex_enabled=1
+" let g:vimtex_compiler_latexmk=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM CLANG FORMAT
@@ -290,6 +295,9 @@ endif
 " Add a bit extra margin to the left
 set foldcolumn=1
 
+" Add auto wrapping for some file types
+au BufRead,BufNewFile *.tex setlocal textwidth=80
+au BufRead,BufNewFile *.bib setlocal textwidth=80
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -609,7 +617,6 @@ function! VisualSelection(direction, extra_filter) range
 endfunction
 
 inoremap ji <Esc>
-" vnoremap ji <Esc>
 
 " Change colors when entering / leaving visual mode
 vnoremap <silent> <expr> <SID>InsertStatuslineColorVisual InsertStatuslineColor('v')
