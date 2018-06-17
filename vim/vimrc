@@ -40,6 +40,9 @@
 "    -> Misc
 "    -> Helper functions
 "
+
+set nocompatible              " be iMproved, required
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Auto Install Vundle
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -69,7 +72,6 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
