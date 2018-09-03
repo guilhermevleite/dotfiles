@@ -112,4 +112,8 @@ source /home/leite/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-
 # source /opt/ros/kinetic/setup.zsh
 
 # Remap left shift to blank
-xmodmap -e "keycode 50 ="
+# xmodmap -e "keycode 50 ="
+
+export TRELLO_USER=guilherme.vieira.leite@gmail.com
+export TRELLO_KEY=0679927968af827c661dd12cf0412290
+export TRELLO_TOKEN=4aa6fdbd8d62374b938c06d90110ab9e073a94e6075c16fceebbe87e1a79f2ee

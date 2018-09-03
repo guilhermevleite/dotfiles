@@ -209,7 +209,7 @@ filetype indent on
 set autoread
 
 " Keeps the curso 10 lines from bottom
-set scrolloff=10
+set scrolloff=4
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -298,6 +298,7 @@ endif
 set foldcolumn=1
 
 " Add auto wrapping for some file types
+" gq to wrap existing lines
 au BufRead,BufNewFile *.tex setlocal textwidth=80
 au BufRead,BufNewFile *.bib setlocal textwidth=80
 
@@ -376,6 +377,7 @@ set wrap "Wrap lines
 """"""""""""""""""""""""""""""
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
+" :noh to clear highlighting until next search
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
