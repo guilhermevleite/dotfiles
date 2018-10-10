@@ -1,4 +1,4 @@
-# Dotfiles - OSX
+# Dotfiles
 
 To create a symbolic link:
 
