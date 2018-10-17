@@ -18,8 +18,11 @@ echo 'set completion-ignore-case On' >> /home/leite/.inputrc
 # Setting up ZSH
 chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-ln -s /home/leite/Workspace/dotfiles/zsh/zshrc /home/leite/.zshrc
+ln -s /home/leite/workspace/dotfiles/zsh/zshrc_linux /home/leite/.zshrc
+
+# Setting Powerlevel9k theme for ZSH
+git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 
 # Setting up VIM environment
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-ln -s /home/leite/Workspace/dotfiles/vim/vimrc /home/leite/.vimrc
+ln -s /home/leite/workspace/dotfiles/vim/vimrc /home/leite/.vimrc

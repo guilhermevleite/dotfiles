@@ -12,6 +12,10 @@
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(ssh dir vcs newline status)
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+# POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+
 DEFAULT_USER=`whoami`
 
 # Set list of themes to pick from when loading at random
@@ -111,4 +115,4 @@ alias grep='grep --color'
 xmodmap -e "keycode 50="
 xmodmap -e "keycode 66 = Shift_L"
 
-source ~/.fonts/*.sh
+# source ~/.fonts/*.sh
