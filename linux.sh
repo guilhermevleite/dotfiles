@@ -10,6 +10,7 @@ sudo apt-get install zsh -y
 sudo apt-get install curl -y
 sudo apt-get install fonts-powerline -y
 sudo apt-get install psensor -y
+sudo apt-get install ctags -y
 
 # Making BASH case insensitive, just in case
 if [ ! -a /home/leite/.inputrc ]; then echo '$include /etc/inputrc' > /home/leite/.inputrc; fi
