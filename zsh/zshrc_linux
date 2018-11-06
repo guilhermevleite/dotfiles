@@ -115,6 +115,8 @@ source $ZSH/oh-my-zsh.sh
 
 alias ll='ls -l'
 alias grep='grep --color'
+alias tadd='trello add-card -b Universe -l Stuff -q top'
+alias tnext="trello show-cards -l 'Next Action' -i -b"
 
 xmodmap -e "keycode 50="
 xmodmap -e "keycode 66 = Shift_L"

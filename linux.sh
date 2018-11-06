@@ -16,6 +16,16 @@ sudo apt-get install ctags -y
 if [ ! -a /home/leite/.inputrc ]; then echo '$include /etc/inputrc' > /home/leite/.inputrc; fi
 echo 'set completion-ignore-case On' >> /home/leite/.inputrc
 
+# Toggling Fn keys
+
+# sudo bash -c "echo 2 > /sys/module/hid_apple/parameters/fnmode"
+
+# or
+
+# echo options hid_apple fnmode=2 | sudo tee -a /etc/modprobe.d/hid_apple.conf
+# sudo update-initramfs -u -k all
+# sudo reboot # optional
+
 # Setting up ZSH
 chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"

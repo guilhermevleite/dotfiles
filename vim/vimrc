@@ -124,6 +124,15 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => GIT GUTTER
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" To disable all key mappings
+let g:gitgutter_map_keys = 0
+
+" If you want to pass extra arguments to git diff, for example to ignore whitespace, do so like this:
+let g:gitgutter_diff_args = '-w'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => ALE
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable completion where available.
