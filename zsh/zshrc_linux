@@ -113,10 +113,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias ll='ls -l'
+alias ll='ls -lh'
 alias grep='grep --color'
 alias tadd='trello add-card -b Universe -l Stuff -q top'
 alias tnext="trello show-cards -l 'Next Action' -i -b"
+alias foxit='/home/leite/Foxit/FoxitReader'
 
 xmodmap -e "keycode 50="
 xmodmap -e "keycode 66 = Shift_L"
