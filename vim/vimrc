@@ -90,7 +90,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
 " sudo apt-get install latexmk
 Plugin 'lervag/vimtex'
 
-" Linter
+" Linter -- Remember to install pip3 install flake8 and apt-get install pylint
 Plugin 'w0rp/ale'
 
 " Git diff in gutter
@@ -154,7 +154,11 @@ let g:ale_sign_error = '✘'
 " Warning
 let g:ale_sign_warning = '!!'
 
-let g:ale_set_highlights = 0
+let g:ale_set_highlights = 1
+
+let g:ale_lin_on_save = 1
+
+let g:ale_echo_cursor = 0
 
 " Clear the BG color that Ale sets
 highlight clear ALEErrorSign
@@ -177,7 +181,7 @@ let g:ale_echo_msg_error_str = '✘'
 let g:ale_echo_msg_warning_str = '!!'
 let g:ale_echo_msg_format = '[%severity%][%linter%] %s'
 
-let g:ale_linters = {'cpp': ['clang'], 'c': ['clang']}
+let b:ale_warn_about_trailing_whitespace = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIMTEX
