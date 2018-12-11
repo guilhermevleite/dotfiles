@@ -84,37 +84,38 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " Colored indentation guides
-Plugin 'nathanaelkane/vim-indent-guides'
+" Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'Yggdroot/indentLine'
 
-" Latex in vim
-" sudo apt-get install latexmk
+" " Latex in vim
+" " sudo apt-get install latexmk
 Plugin 'lervag/vimtex'
 
-" Linter -- Remember to install pip3 install flake8 and apt-get install pylint
+" " Linter -- Remember to install pip3 install flake8 and apt-get install pylint
 Plugin 'w0rp/ale'
 
-" Git diff in gutter
+" " Git diff in gutter
 Plugin 'airblade/vim-gitgutter'
 
-" C++ enhanced highlight
+" " C++ enhanced highlight
 Plugin 'octol/vim-cpp-enhanced-highlight'
 
-" Clang Google formating
+" " Clang Google formating
 Plugin 'rhysd/vim-clang-format'
 
-" PEP8 python syntax checker
+" " PEP8 python syntax checker
 Plugin 'nvie/vim-flake8'
 
-" Tab completion
-Plugin 'ajh17/VimCompletesMe'
+" " Tab completion
+ Plugin 'ajh17/VimCompletesMe'
 
-" Commenting
+" " Commenting
 Plugin 'scrooloose/nerdcommenter'
 
-" Tag managing
+" " Tag managing
 Plugin 'ludovicchabant/vim-gutentags'
 
-" Tag bar
+" " Tag bar
 Plugin 'majutsushi/tagbar'
 
 " All of your Plugins must be added before the following line
@@ -135,9 +136,9 @@ let g:gitgutter_diff_args = '-w'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Indent Guide
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
+" let g:indent_guides_enable_on_vim_startup = 1
+" let g:indent_guides_start_level = 2
+" let g:indent_guides_guide_size = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => ALE
@@ -158,7 +159,7 @@ let g:ale_set_highlights = 1
 
 let g:ale_lin_on_save = 1
 
-let g:ale_echo_cursor = 0
+" let g:ale_echo_cursor = 0
 
 " Clear the BG color that Ale sets
 highlight clear ALEErrorSign
@@ -569,7 +570,6 @@ map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -642,6 +642,9 @@ function! VisualSelection(direction, extra_filter) range
 endfunction
 
 inoremap ji <Esc>
+
+set listchars=tab:\|\ 
+set list
 
 " Change colors when entering / leaving visual mode
 vnoremap <silent> <expr> <SID>InsertStatuslineColorVisual InsertStatuslineColor('v')
