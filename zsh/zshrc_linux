@@ -11,6 +11,7 @@
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="powerlevel9k/powerlevel9k"
+# ZSH_THEME="dracula"
 
 # Powerlevel9k customization
 POWERLEVEL9K_MODE='awesome-fontconfig'
@@ -115,11 +116,23 @@ source $ZSH/oh-my-zsh.sh
 
 alias ll='ls -lh'
 alias grep='grep --color'
-alias tadd='trello add-card -b Universe -l Stuff -q top'
-alias tnext="trello show-cards -l 'Next Action' -i -b"
 alias foxit='/home/leite/Foxit/FoxitReader'
 
-xmodmap -e "keycode 50="
+# Trello CLI aliases
+alias tadd='trello add-card -b Universe -l Stuff -q top'
+alias tnext="trello show-cards -l 'Next Action' -i -b"
+
+# Google Calendar CLI aliases
+cadd()
+{
+    gcalcli --calendar $1 quick $2
+}
+alias clist='gcalcli list'
+alias cnext='gcalcli agenda'
+alias cweek='gcalcli calw'
+alias cmon='gcalcli calm'
+
+# xmodmap -e "keycode 50="
 xmodmap -e "keycode 66 = Shift_L"
 
-# source ~/.fonts/*.sh
+source ~/.fonts/*.sh

@@ -32,8 +32,28 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 ln -s /home/leite/workspace/dotfiles/zsh/zshrc_linux /home/leite/.zshrc
 
 # Setting Powerlevel9k theme for ZSH
-git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+git clone https://github.com/bhilburn/powerlevel9k.git /home/leite/.oh-my-zsh/custom/themes/powerlevel9k
+
+# Installing powerfonts
+wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+
+mv PowerlineSymbols.otf ~/.local/share/fonts/
+
+fc-cache -vf ~/.local/share/fonts/
+
+mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
+
+# Must install this too: https://github.com/gabrielelana/awesome-terminal-fonts
 
 # Setting up VIM environment
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ln -s /home/leite/workspace/dotfiles/vim/vimrc /home/leite/.vimrc
+
+# Install dracula for gnome terminal
+sudo apt-get install dconf-cli
+# git clone https://github.com/GalaticStryder/gnome-terminal-colors-dracula
+# cd gnome-terminal-colors-dracula
+# ./install.sh
+
+sudo apt-get install gcalcli
