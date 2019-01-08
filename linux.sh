@@ -4,7 +4,7 @@ sudo apt-get upgrade -y
 
 # Installing new stuff
 sudo apt-get install htop -y
-sudo apt-get install vim-gnome -y
+#sudo apt-get install vim-gnome -y
 sudo apt-get install git -y
 sudo apt-get install zsh -y
 sudo apt-get install curl -y

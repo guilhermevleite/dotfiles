@@ -119,8 +119,10 @@ alias grep='grep --color'
 alias foxit='/home/leite/Foxit/FoxitReader'
 
 # Trello CLI aliases
-alias tadd='trello add-card -b Universe -l Stuff -q top'
+alias trello='/home/leite/Documents/trello-cli/bin/trello'
+alias tadd='trello add-card -b Universe -l Stuff -q bottom'
 alias tnext="trello show-cards -l 'Next Action' -i -b"
+alias tlist='trello show-boards'
 
 # Google Calendar CLI aliases
 cadd()
@@ -136,3 +138,8 @@ alias cmon='gcalcli calm'
 xmodmap -e "keycode 66 = Shift_L"
 
 source ~/.fonts/*.sh
+
+# Python VirtualEnv
+export WORKON_HOME=$HOME/.virtualenvs                                         
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3                              
+source /usr/local/bin/virtualenvwrapper.sh
