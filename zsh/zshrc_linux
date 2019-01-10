@@ -134,6 +134,14 @@ alias cnext='gcalcli agenda'
 alias cweek='gcalcli calw'
 alias cmon='gcalcli calm'
 
+# Git aliases
+gpush()
+{
+    git add .
+    git commit -m $1
+    git push
+}
+
 # xmodmap -e "keycode 50="
 xmodmap -e "keycode 66 = Shift_L"
 

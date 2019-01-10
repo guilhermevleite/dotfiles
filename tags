@@ -4,3 +4,9 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+GvimColorTest	vim/colors.vim	/^command! GvimColorTest call GvimColorTest('gvim-color-test.tmp')$/;"	c
+GvimColorTest	vim/colors.vim	/^function! GvimColorTest(outfile)$/;"	f
+VimColorTest	vim/colors.vim	/^command! VimColorTest call VimColorTest('vim-color-test.tmp', 12, 16)$/;"	c
+VimColorTest	vim/colors.vim	/^function! VimColorTest(outfile, fgend, bgend)$/;"	f
+num	vim/color_demo.vim	/^    let num = num - 1$/;"	v
+num	vim/color_demo.vim	/^let num = 255$/;"	v
