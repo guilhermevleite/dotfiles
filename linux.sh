@@ -4,13 +4,14 @@ sudo apt-get upgrade -y
 
 # Installing new stuff
 sudo apt-get install htop -y
-#sudo apt-get install vim-gnome -y
+sudo apt-get install neovim -y
 sudo apt-get install git -y
 sudo apt-get install zsh -y
 sudo apt-get install curl -y
 sudo apt-get install fonts-powerline -y
 sudo apt-get install psensor -y
 sudo apt-get install ctags -y
+sudo apt-get install net-tools -y
 
 # Making BASH case insensitive, just in case
 if [ ! -a /home/leite/.inputrc ]; then echo '$include /etc/inputrc' > /home/leite/.inputrc; fi

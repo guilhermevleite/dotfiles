@@ -245,7 +245,7 @@ filetype indent on
 " Set to auto read when a file is changed from the outside
 set autoread
 
-" Keeps the curso 10 lines from bottom
+" Keeps the curso 4 lines from bottom
 set scrolloff=4
 
 " With a map leader it's possible to do extra key combinations
@@ -395,9 +395,9 @@ set expandtab
 " Be smart when using tabs ;)
 set smarttab
 
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+" 1 tab == 2 spaces
+set shiftwidth=2
+set tabstop=2
 
 " Linebreak on 500 characters
 set lbr
@@ -530,7 +530,7 @@ set statusline+=\ %{&filetype!=#''?&filetype:'none'}
 set statusline+=%(\ \ %{gutentags#statusline()}%)
 set statusline+=\ %* " Restore normal highlight
 set statusline+=%2*\ %-2c
-set statusline+=\ %l\ of 
+set statusline+=\ %l\ of
 set statusline+=\ %L\  " Percentage through file in lines as in |CTRL-G|
 set statusline+=%*
 
@@ -661,8 +661,8 @@ set listchars=tab:\|\
 set list
 
 " Change colors when entering / leaving visual mode
-vnoremap <silent> <expr> <SID>InsertStatuslineColorVisual InsertStatuslineColor('v')
-nnoremap <silent> <script> <C-v> <C-v><SID>InsertStatuslineColorVisual
-nnoremap <silent> <script> <S-v> <S-v><SID>InsertStatuslineColorVisual
+"vnoremap <silent> <expr> <SID>InsertStatuslineColorVisual InsertStatuslineColor('v')
+"nnoremap <silent> <script> <C-v> <C-v><SID>InsertStatuslineColorVisual
+"nnoremap <silent> <script> <S-v> <S-v><SID>InsertStatuslineColorVisual
 
 nmap <F8> :TagbarToggle<CR>
