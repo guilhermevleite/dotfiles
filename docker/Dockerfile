@@ -1,6 +1,6 @@
 FROM python:3.6-jessie
 
-LABEL maintainer="Report Bee <www.reportbee.com>"
+LABEL maintainer="guilherme.vieira.leite@gmail.com"
 
 
 RUN apt-get update
@@ -14,7 +14,7 @@ RUN apt-get install -y libhdf5-serial-dev
 RUN apt-get install -y libpng-dev
 RUN apt-get install -y libzmq3-dev
 RUN apt-get install -y pkg-config
-RUN apt-get install -y vim
+RUN apt-get install -y neovim
 RUN apt-get install -y pciutils
 RUN apt-get install -y network-manager
 RUN apt-get install -y module-init-tools
@@ -49,12 +49,12 @@ EXPOSE 8888
 #For TensorBoard
 EXPOSE 6006
 
-WORKDIR ~/app
+WORKDIR /workspace
 
 #Setup Tensorflow object detection
 RUN git clone https://github.com/tensorflow/models.git
-RUN git config --global user.email "gpsunicamp016@gmail.com"
-RUN git config --global user.name "gpspelle"
+RUN git config --global user.email "guilherme.vieira.leite@gmail.com"
+RUN git config --global user.name "lupins"
 
 # RUN apt-get install -y protobuf-compiler
 RUN pip3 install Cython
@@ -76,7 +76,9 @@ RUN cd models/research && protoc ./object_detection/protos/*.proto --python_out=
 # # From tensorflow/models/research/
 RUN echo 'export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim' >> ~/.bashrc
 
-RUN git clone https://github.com/gpspelle/Fall_detection && cd Fall_detection && git pull origin master && cd ..
+# TODO adapt so the clone is done via ssh
+RUN git clone https://github.com/Lupins/fall_detection fall && cd fall && git pull origin master && cd ..
+# TODO change to my own vimrc
 RUN git clone https://github.com/gpspelle/personal && cd personal && git pull origin master && cd ..
 RUN cp personal/.vimrc ~/
 
