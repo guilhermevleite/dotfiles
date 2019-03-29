@@ -1,0 +1,8 @@
+alias ll='ls -lh'
+
+gpush()
+{
+  git add .
+  git commit -m $1
+  git push
+}
