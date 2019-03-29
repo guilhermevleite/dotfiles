@@ -133,6 +133,7 @@ alias clist='gcalcli list'
 alias cnext='gcalcli agenda'
 alias cweek='gcalcli calw'
 alias cmon='gcalcli calm'
+alias sync='sudo systemctl start resilio-sync'
 
 # Git aliases
 gpush()
@@ -150,4 +151,5 @@ source ~/.fonts/*.sh
 # Python VirtualEnv
 export WORKON_HOME=$HOME/.virtualenvs                                         
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3                              
+#export PYTHONPATH=$PYTHONPATH=/home/leite/workspace/fall/saliency_extractor/models/research:/home/leite/workspace/fall/saliency_extractor/models/research/slim
 source /usr/local/bin/virtualenvwrapper.sh

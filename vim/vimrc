@@ -98,7 +98,7 @@ Plugin 'w0rp/ale'
 Plugin 'airblade/vim-gitgutter'
 
 " " C++ enhanced highlight
-Plugin 'octol/vim-cpp-enhanced-highlight'
+"Plugin 'octol/vim-cpp-enhanced-highlight'
 
 " " Clang Google formating
 Plugin 'rhysd/vim-clang-format'
@@ -124,8 +124,16 @@ Plugin 'OmniSharp/omnisharp-vim'
 " " Rainbow Parentheses
 Plugin 'luochen1990/rainbow'
 
+"Plugin 'tbastos/vim-lua'
+
+"Plugin 'numirias/semshi'
+
+Plugin 'sheerun/vim-polyglot'
+
 " Dracula
-Plugin 'dracula/vim'
+"Plugin 'dracula/vim'
+
+Plugin 'NLKNguyen/papercolor-theme'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -351,7 +359,8 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    colorscheme dracula
+    "colorscheme dracula
+    colorscheme PaperColor
 catch
 endtry
 
