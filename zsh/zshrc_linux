@@ -114,6 +114,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias vim='nvim'
 alias ll='ls -lh'
 alias grep='grep --color'
 alias foxit='/home/leite/Foxit/FoxitReader'
@@ -133,7 +134,7 @@ alias clist='gcalcli list'
 alias cnext='gcalcli agenda'
 alias cweek='gcalcli calw'
 alias cmon='gcalcli calm'
-alias sync='sudo systemctl start resilio-sync'
+#alias sync='sudo systemctl start resilio-sync'
 
 # Git aliases
 gpush()
