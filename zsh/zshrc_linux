@@ -114,7 +114,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias vim='nvim'
+# alias vim='nvim'
 alias ll='ls -lh'
 alias grep='grep --color'
 alias foxit='/home/leite/Foxit/FoxitReader'
