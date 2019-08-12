@@ -1,3 +1,9 @@
+" => Global
+
+set nocompatible
+syntax enable
+filetype plugin on
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -33,6 +39,12 @@ set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
+
+" Clipboard
+set clipboard=unnamedplus " Use "+y to copy from vim
+
+" Returns to last edit position when opening files | Remember
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -71,6 +83,15 @@ set si "Smart indent
 set wrap "Wrap lines
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Finding Files
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Provides tab-completion for all file-related tasks
+set path+=**
+" Display all matching files when tab complete
+set wildmenu
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/plugged')
@@ -83,7 +104,55 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'nathanaelkane/vim-indent-guides'
 
+Plug 'w0rp/ale'
+
 call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ALE
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable completion where available.
+let g:ale_completion_enabled = 1
+
+" Keeps the gutter always 
+let g:ale_sign_column_always = 1
+
+" Error
+let g:ale_sign_error = '✘'
+
+" Warning
+let g:ale_sign_warning = '!!'
+
+let g:ale_set_highlights = 0 
+
+let g:ale_lin_on_save = 1
+
+" let g:ale_echo_cursor = 0
+
+" Clear the BG color that Ale sets
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
+
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? '' : printf(
+    \   '[%d!! %d✘]  ',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+
+let g:ale_echo_msg_error_str = '✘'
+let g:ale_echo_msg_warning_str = '!!'
+let g:ale_echo_msg_format = '[%severity%][%linter%] %s'
+
+let b:ale_warn_about_trailing_whitespace = 1
+
+let g:ale_virtualenv_dir_names = []
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => GIT GUTTER
@@ -112,6 +181,12 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" Buffer
+nnoremap <leader>bf :ls<CR>:b<Space>
+nnoremap <leader>bb :b#
+map <leader>bl :bnext<cr>
+map <leader>bh :bprevious<cr>
+
 inoremap ji <Esc>
 
-map <C-_> <plug>NERDCommenterToggle
+map <leader>/ <plug>NERDCommenterToggle

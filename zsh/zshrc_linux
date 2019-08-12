@@ -136,6 +136,8 @@ alias cweek='gcalcli calw'
 alias cmon='gcalcli calm'
 #alias sync='sudo systemctl start resilio-sync'
 
+alias lua='lua5.3'
+
 # Git aliases
 gpush()
 {

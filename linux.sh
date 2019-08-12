@@ -12,6 +12,7 @@ sudo apt-get install fonts-powerline -y
 sudo apt-get install psensor -y
 sudo apt-get install ctags -y
 sudo apt-get install net-tools -y
+sudo apt-get install mysql-server -y
 
 # Making BASH case insensitive, just in case
 if [ ! -a /home/leite/.inputrc ]; then echo '$include /etc/inputrc' > /home/leite/.inputrc; fi
