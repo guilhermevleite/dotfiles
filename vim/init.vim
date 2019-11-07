@@ -9,7 +9,7 @@ filetype plugin on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set history=500
 set number
-set relativenumber
+"set relativenumber
 set autoread
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -92,11 +92,17 @@ set path+=**
 set wildmenu
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Autocomplete
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set completeopt=menu,menuone,preview,noselect,noinsert
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+" Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 Plug 'scrooloose/nerdcommenter'
 
@@ -106,7 +112,23 @@ Plug 'nathanaelkane/vim-indent-guides'
 
 Plug 'w0rp/ale'
 
+Plug 'luochen1990/rainbow'
+
 call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => SEMSHI
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:semshi#no_default_builtin_highlight = v:true
+"let g:semshi#error_sign = v:false
+"let g:semshi#tolerate_syntax_erros = v:false
+let g:semshi#excluded_buffers = ['*']
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => NERDCommenter
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Default: <leader>c<space> NERDCommenterToggle
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => ALE
@@ -157,7 +179,7 @@ let g:ale_virtualenv_dir_names = []
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => GIT GUTTER
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:gitgutter_map_keys = 0
+"let g:gitgutter_map_keys = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Indent Guide
@@ -171,11 +193,36 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=240
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=8
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Spell Error
+highlight SpellBad ctermbg=13 ctermfg=0
+
+" ColorColumn
+highlight ColorColumn ctermbg=8
+
+" Search
+hi Search ctermbg=cyan
+hi Search ctermfg=black
+
+" Vimdiff colors
+highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Remaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ","
+
+" Spell Check
+nnoremap <leader>ss :setlocal spell! spelllang=en_us<CR>
+
+" Save
 nmap <leader>w :w!<cr>
 
+" Buffer Navigation
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
@@ -186,7 +233,10 @@ nnoremap <leader>bf :ls<CR>:b<Space>
 nnoremap <leader>bb :b#
 map <leader>bl :bnext<cr>
 map <leader>bh :bprevious<cr>
+nnoremap <leader>bq :bd<CR>
 
 inoremap ji <Esc>
 
-map <leader>/ <plug>NERDCommenterToggle
+" Copy & Paste
+noremap <leader>y "+y
+noremap <leader>p "+p

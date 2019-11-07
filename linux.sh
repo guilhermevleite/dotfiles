@@ -13,10 +13,16 @@ sudo apt-get install psensor -y
 sudo apt-get install ctags -y
 sudo apt-get install net-tools -y
 sudo apt-get install mysql-server -y
+sudo apt-get install openjdk-8-jdk -y
+sudo apt-get install latexmk -y
+sudo apt-get install texlive-fonts-recommended -y
+sudo apt-get install xzdec -y
 
 # Making BASH case insensitive, just in case
 if [ ! -a /home/leite/.inputrc ]; then echo '$include /etc/inputrc' > /home/leite/.inputrc; fi
 echo 'set completion-ignore-case On' >> /home/leite/.inputrc
+
+cd /home/leite/Workspace/
 
 # Toggling Fn keys
 

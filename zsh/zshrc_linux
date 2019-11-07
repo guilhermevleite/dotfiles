@@ -4,14 +4,13 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH="/home/leite/.oh-my-zsh"
+export ZSH="/home/leite/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="powerlevel9k/powerlevel9k"
-# ZSH_THEME="dracula"
 
 # Powerlevel9k customization
 POWERLEVEL9K_MODE='awesome-fontconfig'
@@ -20,6 +19,10 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator os_icon dir dir_writable vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv background_jobs status time)
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
+
+eval `dircolors /home/leite/.dir_colors/`
+
+# Powerlevel colors
 
 DEFAULT_USER=`whoami`
 
@@ -120,20 +123,11 @@ alias grep='grep --color'
 alias foxit='/home/leite/Foxit/FoxitReader'
 
 # Trello CLI aliases
-alias trello='/home/leite/Documents/trello-cli/bin/trello'
+alias trello='/home/leite/Workspace/trello-cli/bin/trello'
 alias tadd='trello add-card -b Universe -l Stuff -q bottom'
 alias tnext="trello show-cards -l 'Next Action' -i -b"
 alias tlist='trello show-boards'
 
-# Google Calendar CLI aliases
-cadd()
-{
-    gcalcli --calendar $1 quick $2
-}
-alias clist='gcalcli list'
-alias cnext='gcalcli agenda'
-alias cweek='gcalcli calw'
-alias cmon='gcalcli calm'
 #alias sync='sudo systemctl start resilio-sync'
 
 alias lua='lua5.3'
@@ -145,9 +139,6 @@ gpush()
     git commit -m $1
     git push
 }
-
-# xmodmap -e "keycode 50="
-xmodmap -e "keycode 66 = Shift_L"
 
 source ~/.fonts/*.sh
 
