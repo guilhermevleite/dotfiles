@@ -121,7 +121,7 @@ source $ZSH/oh-my-zsh.sh
 alias ll='ls -lh'
 alias grep='grep --color'
 alias foxit='/home/leite/Foxit/FoxitReader'
-alias vim='/home/leite/nvim.appimage'
+alias vim=nvim
 alias jpt=jupyter notebook
 
 # Trello CLI aliases
@@ -145,10 +145,10 @@ gpush()
 source ~/.fonts/*.sh
 
 # Python VirtualEnv
-export WORKON_HOME=$HOME/.virtualenvs                                         
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3                              
-#export PYTHONPATH=$PYTHONPATH=/home/leite/workspace/fall/saliency_extractor/models/research:/home/leite/workspace/fall/saliency_extractor/models/research/slim
-source /usr/local/bin/virtualenvwrapper.sh
+# export WORKON_HOME=$HOME/.virtualenvs                                         
+# export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3                              
+# export PYTHONPATH=$PYTHONPATH=/home/leite/workspace/fall/saliency_extractor/models/research:/home/leite/workspace/fall/saliency_extractor/models/research/slim
+# source /usr/local/bin/virtualenvwrapper.sh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
