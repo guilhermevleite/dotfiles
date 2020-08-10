@@ -117,6 +117,8 @@ Plug 'luochen1990/rainbow'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+Plug 'sheerun/vim-polyglot'
+
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

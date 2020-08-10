@@ -34,11 +34,6 @@ cd /home/leite/Workspace/
 # sudo update-initramfs -u -k all
 # sudo reboot # optional
 
-# Setting up ZSH
-chsh -s $(which zsh)
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-ln -s /home/leite/Workspace/dotfiles/zsh/zshrc_linux /home/leite/.zshrc
-
 # Setting Powerlevel9k theme for ZSH
 mkdir -p /home/leite/.oh-my-zsh/custom/themes
 git clone https://github.com/bhilburn/powerlevel9k.git /home/leite/.oh-my-zsh/custom/themes/powerlevel9k
@@ -81,3 +76,8 @@ sudo apt-get install dconf-cli -y
 git clone https://github.com/GalaticStryder/gnome-terminal-colors-dracula /tmp/dracula-terminal
 cd /tmp/dracula-terminal
 ./install.sh
+
+# Setting up ZSH
+chsh -s $(which zsh)
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+ln -s /home/leite/Workspace/dotfiles/zsh/zshrc_linux /home/leite/.zshrc

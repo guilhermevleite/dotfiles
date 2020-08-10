@@ -16,7 +16,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_MODE='awesome-fontconfig'
 POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator os_icon dir dir_writable vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv background_jobs status time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(anaconda virtualenv background_jobs status time)
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
 
