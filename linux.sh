@@ -17,6 +17,7 @@ sudo apt-get install openjdk-8-jdk -y
 sudo apt-get install latexmk -y
 sudo apt-get install texlive-fonts-recommended -y
 sudo apt-get install xzdec -y
+sudo apt-get install git-flow -y
 
 # Making BASH case insensitive, just in case
 # if [ ! -a /home/leite/.inputrc ]; then echo '$include /etc/inputrc' > /home/leite/.inputrc; fi
