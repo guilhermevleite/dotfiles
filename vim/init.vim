@@ -119,6 +119,8 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'sheerun/vim-polyglot'
 
+Plug 'lervag/vimtex'
+
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -209,6 +211,14 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=8
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_extensions = []
 let g:airline_theme='dracula'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vimtex
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:vimtex_enabled=1
+let g:vimtex_complete_enabled=1
+let g:vimtex_complete_close_braces=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors

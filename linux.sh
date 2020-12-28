@@ -6,7 +6,6 @@ sudo apt-get upgrade -y
 sudo apt-get install htop -y
 sudo apt-get install python3-neovim -y
 sudo apt-get install git -y
-sudo apt-get install zsh -y
 sudo apt-get install curl -y
 sudo apt-get install fonts-powerline -y
 sudo apt-get install psensor -y
@@ -18,10 +17,16 @@ sudo apt-get install latexmk -y
 sudo apt-get install texlive-fonts-recommended -y
 sudo apt-get install xzdec -y
 sudo apt-get install git-flow -y
+sudo apt-get install tmux -y
+sudo apt-get install zsh -y
 
 # Making BASH case insensitive, just in case
 # if [ ! -a /home/leite/.inputrc ]; then echo '$include /etc/inputrc' > /home/leite/.inputrc; fi
 # echo 'set completion-ignore-case On' >> /home/leite/.inputrc
+
+# nVim vimrc
+mkdir -p /home/leite/.config/nvim
+ln -s /home/leite/Workspace/dotfiles/vim/init.vim /home/leite/.config/nvim/init.vim
 
 cd /home/leite/Workspace/
 
@@ -80,5 +85,5 @@ cd /tmp/dracula-terminal
 
 # Setting up ZSH
 chsh -s $(which zsh)
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ln -s /home/leite/Workspace/dotfiles/zsh/zshrc_linux /home/leite/.zshrc

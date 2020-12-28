@@ -1,10 +1,10 @@
 # Dotfiles
 
-To create a symbolic link:
+### To create a symbolic link:
 
 ln -s /path/to/file /path/to/symlink
 
-To find your .vimrc:
+### To find your .vimrc:
 
 :scriptnames
 
