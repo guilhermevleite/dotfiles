@@ -18,6 +18,7 @@ sudo apt-get install texlive-fonts-recommended -y
 sudo apt-get install xzdec -y
 sudo apt-get install git-flow -y
 sudo apt-get install tmux -y
+sudo apt-get install pylint -y
 sudo apt-get install zsh -y
 
 # Making BASH case insensitive, just in case

@@ -137,6 +137,8 @@ alias tlist='trello show-boards'
 
 alias lua='lua5.3'
 
+alias latex='latexmk -pvc -pdf'
+
 # Git aliases
 gpush()
 {

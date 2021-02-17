@@ -74,9 +74,12 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
-" Linebreak on 500 characters
+" Linebreak on 80 characters
 set lbr
-set tw=500
+set tw=80
+
+" Linebreak on 500 characters for tex files only
+autocmd FileType tex setlocal tw=500
 
 set ai "Auto indent
 set si "Smart indent
@@ -110,7 +113,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 
 Plug 'w0rp/ale'
 
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Autocomplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Autocomplete
 
 Plug 'luochen1990/rainbow'
 
@@ -154,7 +157,7 @@ let g:ale_sign_warning = '!!'
 
 let g:ale_set_highlights = 0 
 
-let g:ale_lin_on_save = 1
+let g:ale_lint_on_save = 1
 
 " let g:ale_echo_cursor = 0
 
@@ -213,12 +216,16 @@ let g:airline_extensions = []
 let g:airline_theme='dracula'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vimtex
+" => Vimtex :h vimtex
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:vimtex_enabled=1
 let g:vimtex_complete_enabled=1
 let g:vimtex_complete_close_braces=1
+
+" Necessary for autocompletion to work, also requires deoplete to work
+call deoplete#custom#var('omni', 'input_patterns', {
+      \ 'tex': g:vimtex#re#deoplete
+      \})
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
@@ -248,7 +255,8 @@ hi! MatchParen cterm=bold ctermfg=14 ctermbg=8
 let mapleader = ","
 
 " Spell Check
-nnoremap <leader>ss :setlocal spell! spelllang=en_us<CR>
+" z= to cycle between suggestions
+nnoremap <leader>ss :setlocal spell! spelllang=en_us<cr>
 
 " Save
 nmap <leader>w :w!<cr>
@@ -260,12 +268,16 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Buffer
-nnoremap <leader>bf :ls<CR>:b<Space>
+nnoremap <leader>bf :ls<cr>:b<Space>
 nnoremap <leader>bb :b#
 map <leader>bl :bnext<cr>
 map <leader>bh :bprevious<cr>
-nnoremap <leader>bq :bd<CR>
+nnoremap <leader>bq :bd<cr>
 
+" Clear highlight, mainly from search
+nmap <leader>/ :noh<cr>
+
+" Exit INSERT mode into NORMAL mode
 inoremap ji <Esc>
 
 " Copy & Paste
