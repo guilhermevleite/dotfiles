@@ -122,22 +122,39 @@ source $ZSH/oh-my-zsh.sh
 
 # alias vim='nvim'
 alias ll='ls -lh'
-alias grep='grep --color'
-alias foxit='/home/leite/Foxit/FoxitReader'
+#alias grep='grep --color'
+#alias foxit='/home/leite/Foxit/FoxitReader'
 alias vim=nvim
-alias jpt=jupyter notebook
+#alias jpt=jupyter notebook
 
 # Trello CLI aliases
-alias trello='/home/leite/Workspace/trello-cli/bin/trello'
-alias tadd='trello add-card -b Universe -l Stuff -q bottom'
-alias tnext="trello show-cards -l 'Next Action' -i -b"
-alias tlist='trello show-boards'
+#alias trello='/home/leite/trello-cli/bin/trello'
+#alias tadd='trello add-card -b Universe -l Stuff -q bottom'
+#alias tnext="trello show-cards -l 'Next Action' -i -b"
+#alias tlist='trello show-boards'
 
 #alias sync='sudo systemctl start resilio-sync'
 
-alias lua='lua5.3'
+#alias lua='lua5.3'
 
+# Opens evince with & at the end, so terminal still functional,
+# and dumps any WARNING msgs to dev/null.
+avince(){
+    echo "$1"
+    evince "$1" 2>/dev/null&
+}
+
+# Opens latexmk preview with proper flag
 alias latex='latexmk -pvc -pdf'
+# Lists folders size
+alias lt='du -sh * | sort -h'
+# Count files ignoring folders, but count subfiles too
+alias count='find . -type f | wc -l'
+# Use this instead of rm, it just moves to trash, still
+# recoverable
+alias rmt='gio trash '
+alias drive='google-drive-ocamlfuse ~/Drive/'
+alias mendeley='~/mendeley-2.59.0.AppImage 2>/dev/null&'
 
 # Git aliases
 gpush()
@@ -145,6 +162,31 @@ gpush()
     git add .
     git commit -m $1
     git push
+}
+
+# Time track command
+TIME_TRACK_FILE=~/Workspace/phd_unicamp/time_track.txt
+track()
+{
+    if [ $1 = "ls" ]; then
+        cat $TIME_TRACK_FILE
+
+    elif [ $1 = "rm" ]; then
+        sed -i '$ d' $TIME_TRACK_FILE
+
+    elif [ $1 = "stop" ]; then
+        text="STOP $2 $(date +"%Y_%m_%d %H:%M")"
+        echo $text >> $TIME_TRACK_FILE
+
+    elif [ $1 = "help" ]; then
+        echo "File: "$TIME_TRACK_FILE
+        echo "ls, rm, stop"
+
+    else
+        text="START $1 $(date +"%Y_%m_%d %H:%M")"
+        echo "Added: "$text
+        echo $text >> $TIME_TRACK_FILE
+    fi
 }
 
 source ~/.fonts/*.sh
