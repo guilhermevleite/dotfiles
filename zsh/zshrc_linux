@@ -4,7 +4,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Tmux complaining about color
-export TERM="xterm-256color"
+#export TERM="xterm-256color"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/leite/.oh-my-zsh"
@@ -21,9 +21,9 @@ POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator os_icon dir dir_writable vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(anaconda virtualenv background_jobs status time)
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_left"
 
-eval `dircolors /home/leite/.dir_colors/`
+#eval `dircolors /home/leite/.dir_colors/`
 
 # Powerlevel colors
 
@@ -87,6 +87,7 @@ plugins=(
   git
   git-flow
   screen
+  zsh-256color
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -124,9 +125,12 @@ source $ZSH/oh-my-zsh.sh
 alias ll='ls -lh'
 #alias grep='grep --color'
 #alias foxit='/home/leite/Foxit/FoxitReader'
-alias vim=nvim
+alias vim='/home/leite/nvim.appimage'
 #alias jpt=jupyter notebook
 
+# Google tasks CLI: https://github.com/jrupac/tasky
+
+#alias tasks=''
 # Trello CLI aliases
 #alias trello='/home/leite/trello-cli/bin/trello'
 #alias tadd='trello add-card -b Universe -l Stuff -q bottom'
@@ -154,6 +158,7 @@ alias count='find . -type f | wc -l'
 # recoverable
 alias rmt='gio trash '
 alias drive='google-drive-ocamlfuse ~/Drive/'
+alias undrive='fusermount -u ~/Drive/'
 alias mendeley='~/mendeley-2.59.0.AppImage 2>/dev/null&'
 
 # Git aliases
