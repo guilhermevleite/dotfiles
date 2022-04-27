@@ -149,7 +149,7 @@ avince(){
 }
 
 # Opens latexmk preview with proper flag
-alias latex='latexmk -pvc -pdf'
+alias latex='latexmk -pvc -f -pdf'
 # Lists folders size
 alias lt='du -sh * | sort -h'
 # Count files ignoring folders, but count subfiles too
