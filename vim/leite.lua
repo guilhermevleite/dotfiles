@@ -3,7 +3,7 @@
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Native LSP
-require('lspconfig').pyright.setup{
+require('lspconfig').pyright.setup({
     capabilities = capabilities, -- Read above
     on_attach = function()
         -- We are setting keymaps here because we want them only if the buffer is LSP capable
@@ -15,7 +15,7 @@ require('lspconfig').pyright.setup{
         vim.keymap.set("n", "<leader>dl", "<cmd>Telescope diagnostics <cr>", {buffer=0}) -- CTRL-q to move them to quickfix list
         vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, {buffer=0})
     end
-}
+})
 
 
 -- Autocomplete
@@ -69,8 +69,36 @@ cmp.setup({
 })
 
 
+-- Gitsigns, I think it is an inside plugin, so I only have to require it, instead of PlugInstall
+
+require('gitsigns').setup({
+    signs = {
+        add = {hl = 'GitSignsAdd', text = '█', numhl='GitSignsAddNr', linehl='GitSignsAddLn'},
+        change = {hl = 'GitSignsChange', text = '█', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+        delete = {hl = 'GitSignsDelete', text = '█', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+        topdelete = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+        changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    },
+    signcolumn = true,
+    on_attach = function()
+        local gs = package.loaded.gitsigns
+
+        vim.keymap.set("n", "]c", function()
+            if vim.wo.diff then return ']c' end
+            vim.schedule(function() gs.next_hunk() end)
+            return '<Ignore>'
+        end, {expr=true})
+        vim.keymap.set("n", "[c", function()
+            if vim.wo.diff then return '[c' end
+            vim.schedule(function() gs.prev_hunk() end)
+            return '<Ignore>'
+        end, {expr=true})
+    end,
+})
+
+
 -- Telescope
-require('telescope').setup{
+require('telescope').setup({
     defaults = {
         mapping = {
             -- Insert mode mappings
@@ -79,12 +107,11 @@ require('telescope').setup{
             }
         }
     }
-}
+})
 
 require('telescope').load_extension('fzf')
 
 local mapping = {}
-
 
 mapping.find_in_buffer = function()
     local ops = require('telescope.themes').get_ivy()

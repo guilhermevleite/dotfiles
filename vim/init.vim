@@ -15,11 +15,11 @@ set autoread
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set so=4
+set scrolloff=4
 set ruler
 set cmdheight=2
 set foldcolumn=1
-set signcolumn=yes
+set signcolumn=yes:1 " yes/no and size
 
 " Backspace
 set backspace=eol,start,indent
@@ -40,6 +40,9 @@ set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
+
+" AUtocomplete
+set completeopt=menu,menuone,noselect
 
 " Clipboard
 set clipboard=unnamedplus " Use "+y to copy from vim
@@ -133,9 +136,10 @@ Plug 'saadparwaiz1/cmp_luasnip'
 
 Plug 'scrooloose/nerdcommenter' " Comment
 
-Plug 'airblade/vim-gitgutter' " Git gutter status
-
 Plug 'nathanaelkane/vim-indent-guides' " Indentation
+
+Plug 'tjdevries/colorbuddy.vim'
+Plug 'lewis6991/gitsigns.nvim'
 
 "Plug 'w0rp/ale' " Linter
 
@@ -143,8 +147,8 @@ Plug 'nathanaelkane/vim-indent-guides' " Indentation
 
 "Plug 'luochen1990/rainbow' " Colorize matching brackets, etc.
 
-Plug 'vim-airline/vim-airline' " Vim status bar
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline' " Vim status bar
+"Plug 'vim-airline/vim-airline-themes'
 
 "Plug 'lervag/vimtex' " Latex
 
@@ -165,21 +169,57 @@ Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Autocomplete
+" => Statusline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set completeopt=menu,menuone,noselect
+"set statusline+=%{get(b:, 'gitsigns_status', '')}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Switch between light and dark theme based on time of day
 if strftime('%H') < 19 && strftime('%H') > 05
     echo "Light"
     set background=light
-    " colorscheme PaperColor
+    colorscheme PaperColor
+
+    highlight SignColumn ctermbg=gray
+    highlight GitSignsAdd ctermfg=10 ctermbg=gray
+    highlight GitSignsChange ctermfg=11 ctermbg=gray
+    highlight GitSignsDelete ctermfg=13 ctermbg=gray
 else
     echo "Dark"
     set background=dark
-    " colorscheme PaperColor
+    "colorscheme PaperColor
+
+    highlight SignColumn ctermbg=darkgray
+    highlight GitSignsAdd ctermfg=10 ctermbg=darkgray
+    highlight GitSignsChange ctermfg=11 ctermbg=darkgray
+    highlight GitSignsDelete ctermfg=13 ctermbg=darkgray
 endif
+
+" Spell Error
+highlight SpellBad ctermfg=green
+
+" ColorColumn
+highlight ColorColumn ctermbg=8 ctermfg=white
+
+" Search
+highlight Search ctermbg=cyan ctermfg=black
+
+" Vimdiff colors
+"highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+hi DiffAdd ctermbg=10 ctermfg=black
+hi DiffChange ctermbg=11 ctermfg=black
+hi DiffText ctermbg=12 ctermfg=black
+hi DiffDelete ctermbg=13 ctermfg=black
+
+"highlight DiagnosticError cterm=bold ctermfg=13
+"highlight DiagnosticWarning cterm=bold ctermfg=10
+
+" Matching Parenteses
+highlight MatchParen cterm=bold ctermfg=10 ctermbg=black
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Paper Color Theme
@@ -215,27 +255,22 @@ else
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => NERDCommenter
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Default: <leader>c<space> NERDCommenterToggle
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Indent Guide
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_auto_colors = 0
 
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=240
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=8
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=240
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=8
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vim Airline
+ "=> Vim Airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_extensions = []
-let g:airline_theme='papercolor'
+"let g:airline_extensions = []
+"let g:airline_theme='papercolor'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vimtex :h vimtex
@@ -245,19 +280,6 @@ let g:vimtex_complete_enabled=1
 let g:vimtex_complete_close_braces=1
 
 " \ > CTRL + X > CTL + O Complete Cite/Ref
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vim GitGutter
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Update time between checks
-set updatetime=300
-let g:gitgutter_sign_added = '█'
-let g:gitgutter_sign_modified = '█'
-let g:gitgutter_sign_removed = '█'
-
-"highlight GitGutterAdd ctermfg=green
-"highlight GitGutterChange ctermfg=yellow
-"highlight GitGutterDelete ctermfg=red
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Markdown
@@ -274,30 +296,7 @@ let g:mkdp_echo_preview_url = 1
 let g:python_host_prog=expand('/home/leite/miniconda3/envs/phd/bin/python')
 let g:python3_host_prog=expand('/home/leite/miniconda3/envs/phd/bin/python')
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Spell Error
-highlight SpellBad ctermfg=13
 
-" ColorColumn
-highlight ColorColumn ctermbg=8 ctermfg=white
-
-" Search
-hi Search ctermbg=cyan
-hi Search ctermfg=black
-
-" Vimdiff colors
-highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=13 gui=none guifg=bg guibg=Red
-highlight DiffDelete cterm=bold ctermfg=10 ctermbg=13 gui=none guifg=bg guibg=Red
-highlight DiffChange cterm=bold ctermfg=10 ctermbg=13 gui=none guifg=bg guibg=Red
-highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
-
-highlight DiagnosticError cterm=bold ctermfg=13
-"highlight DiagnosticWarning cterm=bold ctermfg=10
-
-" Matching Parenteses
-highlight MatchParen cterm=bold ctermfg=10 ctermbg=black
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Remaps
