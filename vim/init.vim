@@ -19,6 +19,7 @@ set so=4
 set ruler
 set cmdheight=2
 set foldcolumn=1
+set signcolumn=yes
 
 " Backspace
 set backspace=eol,start,indent
@@ -80,7 +81,7 @@ set softtabstop=4
 " Linebreak on 80 characters
 set lbr
 "set textwidth=80
-set textwidth=65
+"set textwidth=65
 
 " Linebreak on 500 characters for tex files only
 "autocmd FileType tex setlocal tw=65
@@ -100,16 +101,35 @@ set path+=**
 " Display all matching files when tab complete
 set wildmenu
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Autocomplete
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-set completeopt=menu,menuone,noselect
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/plugged')
+
+" Telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
+" Devicons
+Plug 'kyazdani42/nvim-web-devicons'
+
+" LSP config
+Plug 'neovim/nvim-lspconfig'
+
+" Pretty symbols for nvim-cmp
+Plug 'onsails/lspkind.nvim'
+
+" LSP Autocomplete and requires
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+
+" Snip expansion
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
 Plug 'scrooloose/nerdcommenter' " Comment
 
@@ -119,35 +139,14 @@ Plug 'nathanaelkane/vim-indent-guides' " Indentation
 
 "Plug 'w0rp/ale' " Linter
 
-Plug 'tpope/vim-fugitive' " Git comands on vim :Git
+"Plug 'tpope/vim-fugitive' " Git comands on vim :Git
 
-"Plug 'nvim-lua/plenary.nvim'
-"Plug 'jose-elias-alvarez/null-ls.nvim'
-"Plug 'williamboman/nvim-lsp-installer'
-
-" Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'} " Python syntax highlight
-
-"Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocomplete
-
-Plug 'nvim-lua/plenary.nvim' " Lua library
-
-Plug 'neovim/nvim-lspconfig'
-
-Plug 'hrsh7th/nvim-cmp' " Auto completion with native lsp
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'L3MON4D3/LuaSnip'
-Plug 'saadparwaiz1/cmp_luasnip'
-
-Plug 'jose-elias-alvarez/null-ls.nvim' " Other errors inside the LSP
-
-Plug 'luochen1990/rainbow' " Colorize matching brackets, etc.
+"Plug 'luochen1990/rainbow' " Colorize matching brackets, etc.
 
 Plug 'vim-airline/vim-airline' " Vim status bar
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'lervag/vimtex' " Latex
+"Plug 'lervag/vimtex' " Latex
 
 "Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
@@ -163,20 +162,23 @@ Plug 'lervag/vimtex' " Latex
 
 Plug 'NLKNguyen/papercolor-theme'
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
 call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Autocomplete
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set completeopt=menu,menuone,noselect
 
 " Switch between light and dark theme based on time of day
 if strftime('%H') < 19 && strftime('%H') > 05
     echo "Light"
     set background=light
-    colorscheme PaperColor
+    " colorscheme PaperColor
 else
     echo "Dark"
     set background=dark
-    colorscheme PaperColor
+    " colorscheme PaperColor
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -213,200 +215,10 @@ else
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => lsp-config
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-lua << EOF
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-require('lspconfig').pyright.setup{
-    capabilities = capabilities,
-    on_attach = function()
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, {buffer=0})
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, {buffer=0})
-        vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, {buffer=0})
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {buffer=0})
-        vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, {buffer=0})
-        vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, {buffer=0})
-        vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, {buffer=0})
-    end,
-}
-
-
-
--- Setup nvim-cmp.
-local cmp = require'cmp'
-
-cmp.setup({
-snippet = {
-  -- REQUIRED - you must specify a snippet engine
-  expand = function(args)
-    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-  end,
-},
-mapping = {
-  ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-  ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-  ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-  ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-  ['<C-e>'] = cmp.mapping({
-    i = cmp.mapping.abort(),
-    c = cmp.mapping.close(),
-  }),
-  ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-},
-sources = cmp.config.sources({
-  { name = 'nvim_lsp' },
-  { name = 'luasnip' }, -- For luasnip users.
-}, {
-  { name = 'buffer' },
-})
-})
-
--- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-        { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it. 
-    }, {
-        { name = 'buffer' },
-    })
-})
-
--- Vim diagnostic
-vim.diagnostic.config({
-    virtual_text = false,
-    underline = true,
-    signs = false,
-    float = {
-        show_header = true,
-        source = 'always',
-        border = 'rounded',
-        },
-})
-
--- null-ls
-require('null-ls').setup({
-    sources = {
-        require("null-ls").builtins.diagnostics.flake8,
-        require("null-ls").builtins.diagnostics.pylint,
-        --null_ls.builtins.code_actions.gitsigns
-    },
-})
-
--- Trying to set auto diagnostic when hover
--- Not working
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
---  vim.lsp.diagnostic.on_publish_diagnostics, {
---    virtual_text = false,
---    underline = true,
---    signs = true,
---  }
--- )
-
--- vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
--- vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false,
-        underline = true,
-        signs = true,
-    }
-)
-
--- vim.api.nvim_command('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})')
-vim.api.nvim_command('autocmd CursorHold * lua vim.diagnostic.open_float()')
-
-local signs = { Error = "🐞", Warn = "⚠️", Hint = "💡", Info = "ℹ️" }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-EOF
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Pear-Tree
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:pear_tree_repeatable_expand = 0
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDCommenter
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Default: <leader>c<space> NERDCommenterToggle
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => ale
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:airline#extensions#ale#enabled = 1
-
-"let g:deoplete#enable_at_startup = 1
-
-"let g:ale_completion_enabled = 1
-
-" Keeps the gutter always 
-"let g:ale_sign_column_always = 1
-
-" Error
-"let g:ale_sign_error = '✘'
-
-" Warning
-"let g:ale_sign_warning = '!!'
-
-"let g:ale_set_highlights = 0 
-
-"let g:ale_lint_on_save = 1
-
-" let g:ale_echo_cursor = 0
-
-" Clear the BG color that Ale sets
-"highlight clear ALEErrorSign
-"highlight clear ALEWarningSign
-
-"function! LinterStatus() abort
-    "let l:counts = ale#statusline#Count(bufnr(''))
-
-    "let l:all_errors = l:counts.error + l:counts.style_error
-    "let l:all_non_errors = l:counts.total - l:all_errors
-
-    "return l:counts.total == 0 ? '' : printf(
-    "\   '[%d!! %d✘]  ',
-    "\   all_non_errors,
-    "\   all_errors
-    "\)
-"endfunction
-
-"set statusline=%{LinterStatus()}
-
-"let g:ale_echo_msg_error_str = '✘'
-"let g:ale_echo_msg_warning_str = '!!'
-"let g:ale_echo_msg_format = '%linter%: %s'
-
-"let b:ale_warn_about_trailing_whitespace = 1
-
-"let g:ale_virtualenv_dir_names = []
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => DEOPLETE
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"inoremap <silent><expr> <TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => COC
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"inoremap <silent><expr> <TAB>
-      "\ pumvisible() ? "\<C-n>" :
-      "\ <SID>check_back_space() ? "\<TAB>" :
-      "\ coc#refresh()
-
-"function! s:check_back_space() abort
-  "let col = col('.') - 1
-  "return !col || getline('.')[col - 1]  =~# '\s'
-"endfunction
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => GIT GUTTER
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:gitgutter_map_keys = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Indent Guide
@@ -434,16 +246,18 @@ let g:vimtex_complete_close_braces=1
 
 " \ > CTRL + X > CTL + O Complete Cite/Ref
 
-" Necessary for autocompletion to work, also requires deoplete to work
-"call deoplete#custom#var('omni', 'input_patterns', {
-      "\ 'tex': g:vimtex#re#deoplete
-      "\})
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim GitGutter
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Update time between checks
 set updatetime=300
+let g:gitgutter_sign_added = '█'
+let g:gitgutter_sign_modified = '█'
+let g:gitgutter_sign_removed = '█'
+
+"highlight GitGutterAdd ctermfg=green
+"highlight GitGutterChange ctermfg=yellow
+"highlight GitGutterDelete ctermfg=red
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Markdown
@@ -467,7 +281,7 @@ let g:python3_host_prog=expand('/home/leite/miniconda3/envs/phd/bin/python')
 highlight SpellBad ctermfg=13
 
 " ColorColumn
-highlight ColorColumn ctermbg=8
+highlight ColorColumn ctermbg=8 ctermfg=white
 
 " Search
 hi Search ctermbg=cyan
@@ -490,9 +304,6 @@ highlight MatchParen cterm=bold ctermfg=10 ctermbg=black
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ","
 
-" Get back to old location
-nnoremap <leader>gb <C-t>
-
 " Spell Check
 " z= to cycle between suggestions
 nnoremap <leader>ss :setlocal spell! spelllang=en_us<cr>
@@ -507,15 +318,11 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Buffer
-nnoremap <leader>bf :ls<cr>:b<Space>
+"nnoremap <leader>bf :ls<cr>:b<Space>
 "nnoremap <leader>bb :b#
 map <leader>bn :bnext<cr>
 map <leader>bp :bprevious<cr>
 nnoremap <leader>bq :bd<cr>
-nnoremap <leader>f :Files<cr>
-
-" Clear highlight, mainly from search
-"nmap <leader>/ :noh<cr>
 
 " Exit INSERT mode into NORMAL mode
 inoremap ji <Esc>
@@ -523,3 +330,12 @@ inoremap ji <Esc>
 " Copy & Paste
 noremap <leader>y "+y
 noremap <leader>p "+p
+
+" Load the leite.lua file, careful to name it uniquely
+lua require("leite")
+
+" Mapping
+" Use CTL + V to open selection on a new vertical buffer
+nnoremap <C-_> <cmd>lua require('leite').find_in_buffer() <cr>
+" This is a normal call
+nnoremap <leader>ff :Telescope find_files <cr>
