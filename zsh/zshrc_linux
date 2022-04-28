@@ -125,7 +125,7 @@ source $ZSH/oh-my-zsh.sh
 alias ll='ls -lh'
 #alias grep='grep --color'
 #alias foxit='/home/leite/Foxit/FoxitReader'
-alias vim='/home/leite/nvim.appimage'
+alias vim='/home/leite/Applications/nvim.appimage'
 #alias jpt=jupyter notebook
 
 # Google tasks CLI: https://github.com/jrupac/tasky

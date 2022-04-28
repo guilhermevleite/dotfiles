@@ -141,29 +141,6 @@ Plug 'nathanaelkane/vim-indent-guides' " Indentation
 Plug 'tjdevries/colorbuddy.vim'
 Plug 'lewis6991/gitsigns.nvim'
 
-"Plug 'w0rp/ale' " Linter
-
-"Plug 'tpope/vim-fugitive' " Git comands on vim :Git
-
-"Plug 'luochen1990/rainbow' " Colorize matching brackets, etc.
-
-"Plug 'vim-airline/vim-airline' " Vim status bar
-"Plug 'vim-airline/vim-airline-themes'
-
-"Plug 'lervag/vimtex' " Latex
-
-"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-
-"Plug 'benmills/vimux'
-
-"Plug 'greghor/vim-pyShell'
-
-"Plug 'julienr/vim-cellmode'
-
-"Plug 'tpope/vim-endwise'
-
-"Plug 'tmsvg/pear-tree'
-
 Plug 'NLKNguyen/papercolor-theme'
 
 call plug#end()
@@ -172,7 +149,7 @@ call plug#end()
 " => Statusline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"set statusline+=%{get(b:, 'gitsigns_status', '')}
+"set statusline=helloworld
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
