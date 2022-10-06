@@ -14,7 +14,41 @@ require('lspconfig').pyright.setup({
         vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, {buffer=0})
         vim.keymap.set("n", "<leader>dl", "<cmd>Telescope diagnostics <cr>", {buffer=0}) -- CTRL-q to move them to quickfix list
         vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, {buffer=0})
-    end
+    end,
+})
+
+
+---- Tree-sitter configuration
+require'nvim-treesitter.configs'.setup {
+  ---- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
+  highlight = {
+    enable = true,
+    disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
+    additional_vim_regex_highlighting = {'org'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
+  },
+  ensure_installed = {'org'}, -- Or run :TSUpdate org
+}
+
+
+-- Omnisharp
+local nvim_lsp = require('lspconfig')
+local pid = vim.fn.getpid()
+local omnisharp_bin = "/home/leite/Downloads/linux/run"
+
+require('lspconfig').omnisharp.setup({
+    capabilities = capabilities,
+    on_attach = function()
+        -- We are setting keymaps here because we want them only if the buffer is LSP capable
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, {buffer=0}) -- Show documentations, press twice to focus on pop up
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, {buffer=0}) -- Goto definition
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {buffer=0}) -- Goto TYPE definition, good for Objects
+        vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, {buffer=0})
+        vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, {buffer=0})
+        vim.keymap.set("n", "<leader>dl", "<cmd>Telescope diagnostics <cr>", {buffer=0}) -- CTRL-q to move them to quickfix list
+        vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, {buffer=0})
+    end,
+    cmd = {omnisharp_bin, "--languageserver", "--hostPID", tostring(pid)},
+    root_dir = nvim_lsp.util.root_pattern("*.csproj","*.sln"),
 })
 
 
@@ -53,7 +87,6 @@ cmp.setup({
       { name = 'nvim_lsp' },
       { name = 'path' },
       { name = 'luasnip' },
-      { name = 'buffer', keyword_length = 5 },
     },
     formatting = {
         format = lspkind.cmp_format {
@@ -103,7 +136,7 @@ require('telescope').setup({
         mapping = {
             -- Insert mode mappings
             i = {
-                ["<c-a>"] = function() print("Hi") end
+                --["<c-a>"] = function() print("Hi") end
             }
         }
     }

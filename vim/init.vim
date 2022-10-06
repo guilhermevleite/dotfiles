@@ -115,24 +115,28 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
-" Devicons
-Plug 'kyazdani42/nvim-web-devicons'
+"" Devicons
+" Plug 'kyazdani42/nvim-web-devicons'
 
-" LSP config
+"" LSP config
 Plug 'neovim/nvim-lspconfig'
 
-" Pretty symbols for nvim-cmp
+"" Pretty symbols for nvim-cmp
 Plug 'onsails/lspkind.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Highlighting
 
-" LSP Autocomplete and requires
+"" LSP Autocomplete and requires
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 
-" Snip expansion
+"" Snip expansion
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
+
+"" AI dev with vim
+Plug 'untitled-ai/jupyter_ascending.vim'
 
 Plug 'scrooloose/nerdcommenter' " Comment
 
@@ -142,6 +146,8 @@ Plug 'tjdevries/colorbuddy.vim'
 Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'NLKNguyen/papercolor-theme'
+
+"Plug 'yoshio15/vim-trello', { 'branch': 'main' }
 
 call plug#end()
 
@@ -259,6 +265,11 @@ let g:vimtex_complete_close_braces=1
 " \ > CTRL + X > CTL + O Complete Cite/Ref
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vim Trello
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" source ~/.config/nvim/trello.vim
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Markdown
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Auto open preview on file open
@@ -272,8 +283,6 @@ let g:mkdp_echo_preview_url = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:python_host_prog=expand('/home/leite/miniconda3/envs/phd/bin/python')
 let g:python3_host_prog=expand('/home/leite/miniconda3/envs/phd/bin/python')
-
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Remaps
