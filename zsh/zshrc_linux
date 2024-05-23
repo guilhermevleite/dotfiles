@@ -1,3 +1,5 @@
+# Has to be on top, check if tmux is NOT running, and runs it
+if [ "$TMUX" = "" ]; then tmux; fi
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -23,7 +25,7 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 #eval `dircolors /home/leite/.dir_colors/`
-
+#
 # Powerlevel colors
 
 DEFAULT_USER=`whoami`
@@ -113,11 +115,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# alias vim='nvim'
+alias vim='lvim'
 alias ll='ls -lh'
 #alias grep='grep --color'
 #alias foxit='/home/leite/Foxit/FoxitReader'
-alias vim='/home/leite/Applications/nvim.appimage'
+# alias vim='/home/leite/Applications/nvim.appimage'
 #alias jpt=jupyter notebook
 
 # Google tasks CLI: https://github.com/jrupac/tasky
@@ -140,6 +142,8 @@ avince(){
     evince "$1" 1>/dev/null 2>/dev/null&
 }
 
+# Markdown preview
+alias md='grip --quiet -b&'
 # Opens latexmk preview with proper flag
 alias latex='latexmk -pvc -f -pdf'
 # Lists folders size
@@ -152,6 +156,18 @@ alias rmt='gio trash '
 alias drive='google-drive-ocamlfuse ~/Drive/'
 alias undrive='fusermount -u ~/Drive/'
 alias zotero='zotero 1>/dev/null 2>/dev/null&'
+alias godot='/home/leite/Applications/Godot_v4.1.1-stable_linux.x86_64'
+alias internet='systemctl restart NetworkManager'
+o(){
+    if [[ $1 == *.md ]]
+    then
+        /home/leite/.local/bin/grip -b $1
+    else
+        xdg-open $1
+    fi
+}
+alias start_rsl='systemctl start resilio-sync'
+alias stop_rsl='systemctl stop resilio-sync'
 #alias mendeley='~/Applications/mendeley-reference-manager-2.76.0-x86_64.AppImage 1>/dev/null 2>/dev/null&'
 
 # Git aliases
@@ -179,8 +195,45 @@ tadd(){
     trello add-card -b "Universe" -l "Stuff" "$1" "$2"
 }
 
+ds(){
+    cat $1/config.yml | grep dataset
+}
+
+ydown(){
+    pytube --itag 139 -t ~/Music/ $2
+
+    if [ "$1" = "108060" ]; then
+        echo "1080 60fps"
+        pytube --itag 299 -t ~/Videos/ $2
+
+    elif [ "$1" = "1080" ]; then
+        echo "1080"
+        pytube --itag 137 -t ~/Videos/ $2
+
+    elif [ "$1" = "72060" ]; then
+        echo "720 60fps"
+        pytube --itag 298 -t ~/Videos/ $2
+
+    elif [ "$1" = "720" ]; then
+        echo "720"
+        pytube --itag 136 -t ~/Videos/ $2
+
+    elif [ "$1" = "480" ]; then
+        echo "480"
+        pytube --itag 135 -t ~/Videos/ $2
+
+    else
+        echo "144"
+        pytube --itag 160 -t ~/Videos/ $2
+    fi
+}
+
+ymerg(){
+    ffmpeg -i ~/Videos/$1 -i ~/Music/$1 -c copy ~/Videos/done/$1.mkv
+}
+
 # Time track command
-TIME_TRACK_FILE=~/Workspace/phd_unicamp/time_track.txt
+TIME_TRACK_FILE=~/sync/lenovo/time_track.txt
 track()
 {
     if [ $1 = "ls" ]; then
@@ -227,10 +280,18 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-if [ "$TMUX" = "" ]; then tmux; fi
-
 PATH=${PATH}:/home/leite/.dotnet/tools
 export PATH
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# gnome-control-center to open settings
+
+# fnm
+export PATH="/home/leite/.local/share/fnm:$PATH"
+eval "`fnm env`"
+
+# fnm
+export PATH="/home/leite/.local/share/fnm:$PATH"
+eval "`fnm env`"

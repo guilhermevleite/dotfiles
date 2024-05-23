@@ -147,6 +147,8 @@ Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'NLKNguyen/papercolor-theme'
 
+Plug 'lewis6991/gitsigns.nvim'
+
 "Plug 'yoshio15/vim-trello', { 'branch': 'main' }
 
 call plug#end()
