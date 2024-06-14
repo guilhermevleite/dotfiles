@@ -20,6 +20,8 @@ return {
               default_workspace = "notes",
             },
           },
+          ["core.export"] = {},
+          ["core.export.markdown"] = {},
         },
       })
     end,
