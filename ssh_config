@@ -1,0 +1,93 @@
+Host *
+    TCPKeepAlive yes
+    ServerAliveInterval 120
+    ServerAliveCountMax 3
+
+# Host gitlab.ic
+# Generate via: ssh-keygen -t rsa -b 2048 -C "ra210404"
+# Use the generated one, I can't figure out the Hostname of gitlab.ic
+
+# Gitlab
+Host gitlab.com
+  # Hostname altssh.gitlab.com
+  # Hostname ssh.gitlab.com
+  # Port 443
+  # User git
+  PreferredAuthentications publickey
+  IdentityFile ~/ssh-keys/github
+
+# Github
+Host github.com
+    Hostname ssh.github.com
+    User git
+    IdentityFile ~/ssh-keys/github
+
+Host desk
+    User leite
+    HostName 10.0.0.101
+    IdentityFile ~/ssh-keys/github
+
+Host 23
+    User jtstudents
+    HostName 10.227.134.23
+
+Host 26
+    User jtstudents
+    HostName 10.227.134.26
+
+Host phong
+    User leite
+    Hostname 192.168.195.76
+    IdentityFile ~/ssh-keys/github
+
+Host liv
+    User leite
+    HostName ssh.liv.ic.unicamp.br
+    IdentityFile ~/ssh-keys/github
+
+Host turing
+    User leite
+    HostName ssh.liv.ic.unicamp.br
+    # BatchMode yes
+
+Host gpu01
+    User leite
+    HostName 2801:8a:40c0:b169::8f45
+
+Host gpu02
+    User gpu02
+    HostName 2801:8a:40c0:b169::f19a
+
+Host manaus
+  User ra210404
+  HostName manaus.ic.unicamp.br
+
+Host ada
+    HostName ada
+
+Host babbage
+    HostName babbage
+
+Host bezier
+    HostName bezier
+
+Host dorothy
+    HostName dorothy
+
+Host minsky
+    HostName minsky
+
+Host prim
+    HostName prim
+
+Host voronoi
+    HostName voronoi
+
+Host ada babbage bezier dorothy minsky prim voronoi gpu01 gpu02
+    User leite
+    ProxyJump turing
+    # BatchMode yes
+    # if OpenSSH < 7.3 use
+    # ProxyCommand ssh turing -W %h:%p
+    # if Windows 10 use
+    # ProxyCommand c:/Windows\System32\OpenSSH/ssh.exe turing -W %h:%p

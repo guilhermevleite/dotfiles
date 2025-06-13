@@ -1,0 +1,11 @@
+# BEGIN_KITTY_THEME
+# vimbones
+include current-theme.conf
+# END_KITTY_THEME
+
+# Pokemon terminal needs this
+allow_remote_control password
+remote_control_password "" set-background-image
+
+dynamic_background_opacity yes
+background_opacity 0.85

@@ -3,6 +3,7 @@ if status is-interactive
 end
 
 alias latex="latexmk -pvc -f -pdf"
+alias lt="du -sh * | sort -h"
 
 export PATH="$PATH:/opt/nvim/"
 
