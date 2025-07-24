@@ -1,8 +1,15 @@
-# FISH
-ln -s ~/.dotfiles/fish/config.fish ~/.config/fish/config.fish
+# FISH - LOGOUT REQUIRED
+ln -sfn ~/.dotfiles/fish/config.fish ~/.config/fish/config.fish
+chsh -sh /usr/bin/fish
 
 # KITTY
-ln -s ~/.dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
+ln -sfn ~/.dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
 
 # STARSHIP
-ln -s ~/.dotfiles/starship/starship.toml ~/.config/starship/starship.toml
+ln -sfn ~/.dotfiles/starship/starship.toml ~/.config/starship/starship.toml
+
+# CASE INSENSITIVE
+ln -sfn ~/.dotfiles/inputrc ~/.inputrc
+
+# GIT
+ln -sfn ~/.dotfiles/gitconfig ~/.gitconfig
