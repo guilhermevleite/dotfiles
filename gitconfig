@@ -1,0 +1,5 @@
+[user]
+	email = guilherme.vieira.leite@gmail.com
+	name = Guilherme Leite
+[alias]
+    st = status -s
