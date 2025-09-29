@@ -1,6 +1,7 @@
 mkdir ~/Workspace
 
 # SSH
+# Remember to set the private key permission to 600
 mkdir ~/.ssh
 ln -sfn ~/.dotfiles/ssh_config ~/.ssh/config
 
